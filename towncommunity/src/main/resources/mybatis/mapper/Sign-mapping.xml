@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="Dao.SignDAO">
+  	<insert id="insertMember" parameterType="memberdto">
+  		INSERT INTO member(member_id,name,phone,email,address,town_id,password) value(#{member_id},#{name},#{phone},#{email},#{address},(select (town_id) from town where address=#{address}),#{password})
+  	</insert>
+  	<select id="dupliIDcheck" parameterType="String" resultType="int">
+		SELECT COUNT(member_id) FROM member where member_id= #{member_id}
+	</select>
+	<select id="dupliEmailcheck" parameterType="String" resultType="int">
+		SELECT COUNT(email) FROM member where email= #{email}
+	</select>
+	<select id="dupliFindEmailcheck" parameterType="String" resultType="int">
+		SELECT COUNT(member_id= #{member_id}) FROM member where email= #{email}
+	</select>
+  	<update parameterType="hashmap" id="LoginMember">
+  		update member set  invite_sum=#{invite_sum} where member_id =#{member_id}
+  	</update>
+  	<select parameterType="String" resultType="memberdto" id="MyInfo">
+  		select * from member where member_id = #{member_id}
+  	</select>
+  	<update parameterType="memberdto" id="updatemember">
+  		update member set  name= #{name} , address=#{address} , phone=#{phone}, town_id = (select (town_id) from town where address=#{address}) where member_id =#{member_id}
+  	</update>
+  	<update parameterType="memberdto" id="Findpwupdate">
+  		update member set  password=#{password} where member_id =#{member_id}
+  	</update>
+  	<insert id="deletememberinsert" parameterType="hashmap">
+  		insert into delete_member(member_id,name,phone,email,signup_date) value(#{member_id},#{name},#{phone},#{email},#{signup_date})
+  	</insert>
+  	<delete parameterType="String"   id="deletemember">
+  		delete from member where member_id =#{member_id}
+  	</delete>
+  	<!-- 내가 쓴 글 선택시 내가 쓴 글 개수 가져오기 -->
+	<select id="getMyArticleCount" parameterType="hashmap" resultType="int">
+		select count(*) from board where writer = #{member_id} 
+	</select>
+	
+	<!-- 내가 쓴 글 선택시 내가 쓴 글 목록 가져오기(페이징 처리O) -->
+	<select id="getMyPagingBoardlist" parameterType="hashmap" resultType="boarddto">
+		select * from board 
+		where writer = #{member_id} 
+		order by writing_time desc, update_time desc
+		limit #{limitindex}, #{limitcount}
+	</select>
+ 	<!-- 내가 쓴 댓글 선택시 내가 쓴 댓글 개수 가져오기 -->
+	<select id="getMycommentArticleCount" parameterType="hashmap" resultType="int">
+		select count(*) from board b  join comment c on b.board_id = c.board_id where comment_writer = #{member_id};
+	</select>
+	
+	<!-- 내가 쓴 댓글 선택시 내가 쓴 댓글 목록 가져오기(페이징 처리O) -->
+	<select id="getMycommentPagingBoardlist" parameterType="hashmap" resultType="boarddto">
+		select board_name_inner, board_title,comment_writer, b.board_id, comment_contents, comment_time from board b  join comment c on b.board_id = c.board_id where comment_writer = #{member_id};
+	</select>
+ 	<!-- 내가 좋아요 한글 선택시 내가 좋아요 한글 개수 가져오기 -->
+	<select id="getMygoodArticleCount" parameterType="hashmap" resultType="int">
+		select count(*) from 
+		board b join good_or_hate gh
+		on b.board_id = gh.board_id
+		where gh.good = true and gh.member_id = #{member_id};
+	</select>
+	
+	<!-- 내가 좋아요 한글 선택시 내가 좋아요 한글 목록 가져오기(페이징 처리O) -->
+	<select id="getMygoodPagingBoardlist" parameterType="hashmap" resultType="boarddto">
+		select * from 
+		board b join good_or_hate gh
+		on b.board_id = gh.board_id
+		where gh.good = true and gh.member_id = #{member_id};
+	</select>
+	<select id="admincnt" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM member where member_role=1;
+	</select>
+
+
+  </mapper>

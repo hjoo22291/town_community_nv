@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Dao.AdminDAO">
+
+	<resultMap id="MemberResultMap" type="Dto.MemberDTO">
+		<result column="member_id" property="member_id" />
+
+	</resultMap>
+
+	<select id="getAllMembers" resultMap="MemberResultMap">
+		SELECT * FROM member
+	</select>
+	<resultMap id="BlameResultMap" type="Dto.BlameTableDTO">
+		<result column="blamecnt" property="blamecnt" />
+		<result column="boardname" property="boardname" />
+		<result column="write_id" property="write_id" />
+		<result column="comment" property="comment" />
+		<result column="blame_id" property="blame_id" />
+		<result column="blame_comment" property="blame_comment" />
+		<result column="blame_date" property="blame_date" />
+		<result column="comment_id" property="comment_id" />
+		<result column="board_id" property="board_id" />
+	</resultMap>
+
+	<select id="getAllBlames" resultMap="BlameResultMap">
+		SELECT * FROM blametable
+	</select>
+	<resultMap id="BoardResultMap" type="Dto.BoardDTO">
+		<result column="board_id" property="board_id" />
+		<result column="board_name_inner" property="board_name_inner" />
+		<result column="board_title" property="board_title" />
+		<result column="board_contents" property="board_contents" />
+		<result column="writing_time" property="writing_time" />
+		<result column="update_time" property="update_time" />
+		<result column="good_cnt" property="good_cnt" />
+		<result column="hate_cnt" property="hate_cnt" />
+		<result column="view_cnt" property="view_cnt" />
+		<result column="board_imgurl" property="board_imgurl" />
+		<result column="board_videourl" property="board_videourl" />
+		<result column="board_fileurl" property="board_fileurl" />
+		<result column="place_name" property="place_name" />
+		<result column="place_lat" property="place_lat" />
+		<result column="place_long" property="place_long" />
+		<result column="writer" property="writer" />
+		<result column="town_id" property="town_id" />
+		<result column="sum" property="sum" />
+	</resultMap>
+
+	<select id="getAllBoards" resultMap="BoardResultMap">
+		SELECT * FROM board
+	</select>
+<select id="getPaginatedMembers" resultType="Dto.MemberDTO">
+    SELECT * FROM member ORDER BY member_id LIMIT #{1}, #{20}
+</select>
+
+<update id="unbanMember" parameterType="string">
+        UPDATE member SET stop_date = 0 WHERE member_id = #{memberId}
+    </update>
+</mapper>

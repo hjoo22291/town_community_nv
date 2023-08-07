@@ -1,0 +1,495 @@
+@charset "UTF-8";
+
+#board_onepage {
+	width : 90%; height : auto;
+	align-content: flex-start;
+	flex-direction: row; 
+	flex-wrap: wrap; 
+	margin-left : 50px;
+}
+#board_onepage > div {
+	/* border : 1px solid black; */
+	margin-bottom : 10px;
+	margin-left : 10px;
+	/* margin-right : 10px; */
+}
+#top_btns, #bottom_btns, #bottom_right, .recomment_bottom_btns, .recomment_bottom_right {
+	display : flex;
+	justify-content : space-between; 
+}
+#top_btns > input {
+	width:50px; height : 30px;
+	line-height : 30px;
+	font-size : 14px;
+	border : none;
+	background-color : transparent;	
+	cursor: pointer;
+}
+	
+#top_btns > input:hover {
+	background-color : #6D829B;
+	color : white;			
+}
+	
+#bottom_btns > input {
+		width:42px; height : 25px;
+		font-size : 13px;
+		border : none;
+		background-color : transparent;	
+		cursor: pointer;
+}
+	
+#bottom_btns > input:hover {
+	background-color : #6D829B;
+	color : white;			
+}
+	
+#bottom_right > input {
+		width:42px; height : 25px;
+		font-size : 14px;
+		border : none;
+		background-color : transparent;	
+		cursor: pointer;
+}
+	
+#bottom_right > input:hover {
+	background-color : #6D829B;
+	color : white;			
+}	
+.recomment_bottom_btns > input {
+		width:42px; height : 25px;
+		font-size : 14px;
+		border : none;
+		background-color : transparent;	
+		cursor: pointer;
+}
+	
+.recomment_bottom_btns > input:hover {
+	background-color : #6D829B;
+	color : white;			
+}
+	
+.recomment_bottom_right	> input {
+		width:42px; height : 25px;
+		font-size : 14px;
+		border : none;
+		background-color : transparent;	
+		cursor: pointer;
+}
+	
+.recomment_bottom_right	> input:hover {
+	background-color : #6D829B;
+	color : white;			
+}
+
+#board_btnbox{
+	position: relative;
+}
+
+#board_btns_open{
+		font-size : 15px;
+		border : none;
+		background-color : transparent;	
+		cursor: pointer;
+		margin : 1px;	
+} 
+#board_update_btn, #board_delete_btn, #board_blame_btn {
+	width:50px; height : 20px;
+	font-size : 13px;
+	line-height : 20px;
+	border : none;
+	background-color : transparent;	
+	cursor: pointer;
+	margin : 1px;
+	text-align: center;
+}
+#board_btns_parentDiv {
+	display : none;
+	background-color : white;
+	border : 1px solid black;
+	padding : 3px;
+	width : 50px;
+	position: absolute;
+	font-size : 13px;
+	justify-content: center;
+	align-items: center;
+	right: -30px;
+}
+
+#board_blameBtn_parentDiv {
+	display : none;
+	background-color : white;
+	border : 1px solid black;
+	text-align: center;
+	padding : 3px;
+	width : 50px;
+	position: absolute;
+	font-size : 13px;
+	justify-content: center;
+	align-items: center;
+	right: -30px;
+}
+#oneboard_title {
+	font-size : 23px;
+	line-height : 23px;
+	display: block;
+	word-break:break-all;
+	height : auto;
+	margin-right : 10px;
+}
+#oneboard_info {
+	display : flex;
+	height : 40px;
+	align-items : center;
+	margin-bottom : 10px;
+}
+#oneboard_writerinfo {
+	display : flex;
+	align-items : center;
+}
+#oneboard_profileImg {
+	margin-right : 5px;
+	width : 35px; height : 35px;
+	border-radius: 70%;
+    overflow: hidden;
+}
+#oneboard_profileImg > img {
+	width : 100%; height : 100%;
+	object-fit: cover;
+}
+#oneboard_memberGrade, .writer_memberGrade{
+	width:20px; height:20px;
+	margin-right : 3px;
+}
+#oneboard_memberGrade > img, .writer_memberGrade > img {
+	width:20px; height:20px;
+}
+#oneboard_writer {
+	font-size : 15px;
+	line-height : 15px;
+	margin-right : 15px;		
+}
+.info {
+	font-size : 12px;
+	line-height : 12px;
+	margin-right : 10px;
+}
+#oneboard_contents {
+	display: block;
+	word-break:break-all;
+	height : auto;
+	margin : 15px;
+}
+
+.one_comment {
+	align-items : center;
+	margin-bottom : 10px;
+	border-bottom : 1px solid  #E3E2E0;
+}
+.one_comment > div { 
+	font-size : 15px;
+	line-height : 15px;
+	/* border : 1px solid black; */
+}
+.comment_upper {
+	display: flex;
+	width : 100%;
+	justify-content: space-between;
+}
+.comment_profile{
+	display: flex;
+	align-items : center;
+	/* margin-bottom : 7px; */
+}
+.comment_profileImg {
+	margin-right : 5px;
+	width : 35px; height : 35px;
+	border-radius: 70%;
+    overflow: hidden;
+}
+.comment_profileImg > img {
+	width : 100%; height : 100%;
+	object-fit: cover;
+}
+.comment_info {
+	display: flex;
+	align-items : center;
+}	
+.comment_writer {
+	font-size : 14px;
+	line-height: 14px;
+	margin-right : 10px;			
+}	
+.comment_writingtime {
+	color : gray;
+	font-size : 10px;
+	line-height: 10px;
+}
+.comment_btns_open, .writeRecommentBtn{
+	font-size : 13px;
+	border : none;
+	background-color : transparent;	
+	cursor: pointer;
+	margin : 1px;	
+} 
+.comment_update_btn, .comment_delete_btn, .comment_blame_btn {
+	width:50px; height : 20px;
+	font-size : 13px;
+	line-height : 20px;
+	border : none;
+	background-color : transparent;	
+	cursor: pointer;
+	margin : 1px;
+	text-align: center;
+}
+.comment_btns_parentDiv {
+	display : none;
+	background-color : white;
+	border : 1px solid black;
+	padding : 3px;
+	width : 50px;
+	position: absolute;
+	font-size : 13px;
+	justify-content: center;
+	align-items: center;
+	margin-left:20px;
+}
+.comment_blameBtn_parentDiv {
+	display : none;
+	background-color : white;
+	border : 1px solid black;
+	text-align: center;
+	padding : 3px;
+	width : 50px;
+	position: absolute;
+	font-size : 13px;
+	justify-content: center;
+	align-items: center;
+	margin-left:20px;
+}
+.comment_content {
+	display: block;
+	word-break:break-all;
+	height : auto;
+	margin-right : 10px;
+	margin-left : 41px;
+	margin-bottom : 10px;
+}
+.comment_img {
+	margin-top : 10px;
+	margin-left : 10px;
+	width : 100px; height : 100px;
+}
+
+.one_recomment {
+	align-items : center;
+	margin-bottom : 10px;
+	border-bottom : 1px solid  #E3E2E0;
+}
+.one_recomment > div { 
+	font-size : 15px;
+	line-height : 15px;
+	/* border : 1px solid black; */
+}
+.recomment_upper {
+	display: flex;
+	width : 100%;
+	justify-content: space-between;
+}
+.recomment_profile{
+	display: flex;
+	align-items : center;
+	/* margin-bottom : 7px; */
+}
+
+.recomment_profileImg {
+	margin-right : 5px;
+	width : 35px; height : 35px;
+	border-radius: 70%;
+    overflow: hidden;
+}
+.recomment_profileImg > img {
+	width : 100%; height : 100%;
+	object-fit: cover;
+}
+.recomment_info {
+	display: flex;
+	align-items : center;
+}
+.recomment_writer {
+	font-size : 14px;
+	line-height: 14px;
+	margin-right : 10px;
+}
+.recomment_writingtime {
+	color : gray;
+	font-size : 10px;
+	line-height: 10px;
+}
+.recomment_content {
+	display: block;
+	word-break:break-all;
+	height : auto;
+	margin-right : 10px;
+	margin-left : 80px;
+	margin-bottom : 10px;
+	
+}
+.comment_img {
+	margin-top : 10px;
+	margin-left : 10px;
+	width : 100px; height : 100px;
+}
+
+#comment_writing{
+	margin-top : 10px;
+	margin-bottom : 10px;
+	width : 100%;
+	background-color : white;
+}
+#comment_writing > textarea {
+	width : 99.5%; height : 60px;
+	resize: none;
+	border : none;
+}
+#comment_img_upload { /*댓글 이미지첨부쪽 css*/
+	margin-left : 10px;
+}
+#comment_img_upload > label > img {
+	cursor: pointer;
+}
+#comment_img_upload > input[type=file] {
+	display : none;
+}
+
+.recomment_writing, .comment_updateWritingDiv {
+	display : none;
+	margin-top : 10px;
+	margin-bottom : 10px;
+	margin-left : 40px;
+	width : 95%;
+	background-color : white;	
+}
+.recomment_writing > textarea {
+	width : 99.5%; height : 60px;
+	resize: none;
+	border : none;
+}
+.comment_update_writing_area {
+	width : 99.5%; height : 60px;
+	resize: none;
+	border : none;
+}
+.recomment_img_upload { /*댓글 이미지첨부쪽 css*/
+	margin-left : 10px;
+}
+.recomment_img_upload > label > img {
+	cursor: pointer;
+}
+.recomment_img_upload > input[type=file] {
+	display : none;
+}
+
+#secret_checkDiv, .recomment_secret_checkDiv,.comment_update_secret_checkDiv {
+	font-size:14px; 
+	margin-right : 5px;
+}
+
+/* -----------댓글 수정폼 관련---------- */
+.comment_update_bottom_btns, .comment_update_bottom_right {
+	display : flex;
+	justify-content : space-between; 
+}
+.comment_update_bottom_btns > input {
+		width:42px; height : 25px;
+		font-size : 14px;
+		border : none;
+		background-color : transparent;	
+		cursor: pointer;
+}
+	
+.comment_update_bottom_btns > input:hover {
+	background-color : #6D829B;
+	color : white;			
+}
+	
+.comment_update_bottom_right > input {
+		width:42px; height : 25px;
+		font-size : 14px;
+		border : none;
+		background-color : transparent;	
+		cursor: pointer;
+}
+	
+.comment_update_bottom_right > input:hover {
+	background-color : #6D829B;
+	color : white;			
+}
+.comment_update_img_upload { /*댓글 이미지첨부쪽 css*/
+	margin-left : 10px;
+}
+.comment_update_img_upload > label > img {
+	cursor: pointer;
+}
+.comment_update_img_upload > input[type=file] {
+	display : none;
+}
+
+/*멤버 id 누르면 나오는 버튼들 관련*/ 
+.chatTo_btn, .myInfo_btn, .yourInfo_btn {
+	width:70px; height : 20px;
+	font-size : 13px;
+	border : none;
+	background-color : transparent;	
+	cursor: pointer;
+	margin : 1px;
+}
+.myInfo_btnBox {
+	display : none;
+	background-color : white;
+	border : 1px solid black;
+	text-align: center;
+	padding : 5px;
+	width : 70px;
+	height : 20px;
+	position: absolute;
+	margin-top : 55px;
+	margin-left : 35px;
+	font-size : 13px;
+}
+.yourInfo_btnBox {
+	display : none;
+	background-color : white;
+	border : 1px solid black;
+	text-align: center;
+	padding : 3px;
+	width : 70px;
+	/* height : 45px; */
+	position: absolute;
+	margin-top : 80px;
+	margin-left : 55px;
+	font-size : 13px;
+	justify-content: center;
+	align-items: center;
+}
+
+#oneboard_writer, .comment_writer, .recomment_writer {
+	cursor: pointer;	
+}
+
+#cmt_imgPreview_box, .recmt_imgPreview_box, .cmt_update_imgPreview_box {
+	display : flex;
+	height : 80px;
+	margin-bottom : 10px;
+	display : none;
+}
+#delete_photo, .recmt_delete_photo, .cmt_update_delete_photo {
+	width : 10px; height : 10px;
+	margin-left : 5px;
+	cursor: pointer;
+}
+#comment_img_preview, .recomment_img_preview, .comment_update_img_preview {
+	margin-left : 10px;
+	width : 80px; height : 80px;
+	/* display : none; */
+}
