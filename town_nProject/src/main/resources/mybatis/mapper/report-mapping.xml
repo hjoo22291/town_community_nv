@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Dao.ReportDAO">
+
+<insert id="reportChat" parameterType="reportdto">
+	INSERT INTO report (message_id, reported_member_id, reporter, reported_contents, report_reason, report_detail) 
+		values (#{message_id}, #{reported_member_id}, #{reporter}, #{reported_contents}, #{report_reason}, #{report_detail})
+</insert>
+
+<insert id="reportGChat" parameterType="reportdto">
+	INSERT INTO report (gmessage_id, reported_member_id, reporter, reported_contents, report_reason, report_detail) 
+		values (#{gmessage_id}, #{reported_member_id}, #{reporter}, #{reported_contents}, #{report_reason}, #{report_detail})
+</insert>
+
+<!-- 글 신고 -->
+<insert id="reportBoard" parameterType="reportdto">
+	insert into report (board_id, reported_member_id, reporter, reported_contents, report_reason, report_detail) 
+			values (#{board_id}, #{reported_member_id}, #{reporter}, #{reported_contents}, #{report_reason}, #{report_detail})
+</insert>
+
+<!-- 해당 댓글 조회 -->
+<select id="getCommentDetail" resultType="commentdto" parameterType="int">
+	select * from comment where comment_id = #{comment_id}
+</select> 
+
+<!-- 댓글 신고 -->
+<insert id="reportComment" parameterType="reportdto">
+	insert into report (comment_id, reported_member_id, reporter, reported_contents, report_reason, report_detail) 
+			values (#{comment_id}, #{reported_member_id}, #{reporter}, #{reported_contents}, #{report_reason}, #{report_detail})
+</insert>
+
+<!-- 신고테이블+보드테이블 조인 -->
+<resultMap type="boarddto" id="boarddto">
+	<id property="board_id" column="board_id"/>
+	<result property="board_name_inner" column="board_name_inner"/>
+	<result property="board_title" column="board_title"/>
+	<result property="board_contents" column="board_contents"/>
+	<result property="writing_time" column="writing_time"/>
+	<result property="update_time" column="update_time"/>
+	<result property="good_cnt" column="good_cnt"/>
+	<result property="hate_cnt" column="hate_cnt"/>
+	<result property="view_cnt" column="view_cnt"/>
+	<result property="board_imgurl" column="board_imgurl"/>
+	<result property="board_videourl" column="board_videourl"/>
+	<result property="board_fileurl" column="board_fileurl"/>
+	<result property="place_name" column="place_name"/>
+	<result property="place_road_address" column="place_road_address"/>
+	<result property="place_address" column="place_address"/>
+	<result property="place_tel" column="place_tel"/>
+	<result property="place_lat" column="place_lat"/>
+	<result property="place_long" column="place_long"/>
+	<result property="writer" column="writer"/>
+	<result property="town_id" column="town_id"/>
+	<result property="sum" column="sum"/>
+	<result property="board_preview" column="board_preview"/>
+	<result property="printout" column="printout"/>
+</resultMap>
+
+<resultMap type="reportdto" id="reportBoardMap">
+	<id property="report_id" column="report_id"/>
+	<result column="board_id" property="board_id" />
+	<result column="comment_id" property="comment_id" />
+	<result column="message_id" property="message_id" />
+	<result column="gmessage_id" property="gmessage_id" />
+	<result column="reported_member_id" property="reported_member_id" />
+	<result column="reporter" property="reporter" />
+	<result column="reported_contents" property="reported_contents" />
+	<result column="report_reason" property="report_reason" />
+	<result column="report_detail" property="report_detail" />
+	<result column="report_time" property="report_time" />
+	<result column="report_result" property="report_result" />
+	<result column="result_time" property="result_time" />
+	<collection property="boarddto" resultMap="boarddto" />
+</resultMap>
+
+<!-- 신고된 글 목록 -->
+<select id="reportedBoardList" resultMap="reportBoardMap" parameterType="Pagination.SearchDTO">
+	select *
+	from report r inner join board b
+	on  r.board_id = b.board_id
+	where r.board_id is not NULL and 
+	<choose>
+		<when test="searchType1 == 'notYet'">
+			r.report_result is null
+		</when>
+		<otherwise>
+			r.report_result is not null
+		</otherwise>
+	</choose>
+	order by result_time desc, report_time desc, report_id desc
+	limit #{pagination.limitStart}, #{recordSize}
+</select>
+
+
+<!-- 신고된 글 갯수 -->
+<select id="reportedBoardCnt" resultType="int" parameterType="Pagination.SearchDTO">
+	select count(*)
+	from report r inner join board b
+	on  r.board_id = b.board_id
+	where r.board_id is not NULL and
+	<choose>
+		<when test="searchType1 == 'notYet'">
+			r.report_result is null
+		</when>
+		<otherwise>
+			r.report_result is not null
+		</otherwise>
+	</choose>	
+</select>
+
+<!-- 신고테이블+댓글테이블 조인 -->
+<resultMap type="commentdto" id="commentdto">
+	<id property="comment_id" column="comment_id"/>
+	<result property="comment_writer" column="comment_writer"/>
+	<result property="comment_contents" column="comment_contents"/>
+	<result property="comment_time" column="comment_time"/>
+	<result property="comment_updateTime" column="comment_updateTime"/>
+	<result property="comment_imgurl" column="comment_imgurl"/>
+	<result property="comment_secret" column="comment_secret"/>
+	<result property="parent_id" column="parent_id"/>
+	<result property="board_id" column="c_board_id"/>
+	<result property="printout" column="printout"/>
+</resultMap>
+
+<resultMap type="reportdto" id="reportCommentMap">
+	<id property="report_id" column="report_id"/>
+	<result column="r_board_id" property="board_id" />
+	<result column="comment_id" property="comment_id" />
+	<result column="message_id" property="message_id" />
+	<result column="gmessage_id" property="gmessage_id" />
+	<result column="reported_member_id" property="reported_member_id" />
+	<result column="reporter" property="reporter" />
+	<result column="reported_contents" property="reported_contents" />
+	<result column="report_reason" property="report_reason" />
+	<result column="report_detail" property="report_detail" />
+	<result column="report_time" property="report_time" />
+	<result column="report_result" property="report_result" />
+	<result column="result_time" property="result_time" />
+	<collection property="commentdto" resultMap="commentdto" />
+</resultMap>
+
+<!-- 신고된 댓글 목록 -->
+<select id="reportedCommentList" resultMap="reportCommentMap" parameterType="Pagination.SearchDTO">
+	select 
+	r.report_id, r.board_id as r_board_id, r.comment_id, r.message_id, r.gmessage_id, r.reported_member_id, r.reporter, r.reported_contents, r.report_reason, 
+	r.report_detail, r.report_time, r.report_result, r.result_time,
+	c.comment_id, c.comment_writer, c.comment_contents, c.comment_time, c.comment_updateTime, c.comment_imgurl, c.comment_secret, c.parent_id, 
+	c.board_id as c_board_id, c.printout
+	from report r inner join comment c
+	on  r.comment_id = c.comment_id
+	where r.comment_id is not NULL and 
+	<choose>
+		<when test="searchType1 == 'notYet'">
+			r.report_result is null
+		</when>
+		<otherwise>
+			r.report_result is not null
+		</otherwise>
+	</choose>
+	order by result_time desc, report_time desc, report_id desc
+	limit #{pagination.limitStart}, #{recordSize}
+</select>
+
+<!-- 신고된 댓글 갯수 -->
+<select id="reportedCommentCnt" resultType="int" parameterType="Pagination.SearchDTO">
+	select count(*)
+	from report r inner join comment c
+	on  r.comment_id = c.comment_id
+	where r.comment_id is not NULL and 
+	<choose>
+		<when test="searchType1 == 'notYet'">
+			r.report_result is null
+		</when>
+		<otherwise>
+			r.report_result is not null
+		</otherwise>
+	</choose>
+</select>
+
+<!-- 신고된 글 처리결과 update -->
+<update id="updateReportResult" parameterType="reportdto">
+	update report set report_result = #{report_result}, result_time = now() where report_id = #{report_id}
+</update>
+
+<!-- ////////////////////////////////////////// 채팅부분 /////////////////////////////////////////////////////////// -->
+<!-- 신고된 개인 채팅-->
+<select id="reportedChatList" parameterType="Pagination.SearchDTO">
+	select *
+	from report
+	where message_id is not NULL and 
+	<choose>
+		<when test="searchType1 == 'notYet'">
+			report_result is null
+		</when>
+		<otherwise>
+			report_result is not null
+		</otherwise>
+	</choose>
+	order by result_time desc, report_time desc, report_id desc
+	limit #{pagination.limitStart}, #{recordSize}
+</select>
+
+<!-- 신고된 채팅 갯수 -->
+<select id="reportedChatCnt" resultType="int" parameterType="Pagination.SearchDTO">
+	select count(*)
+	from report
+	where message_id is not NULL and
+	<choose>
+		<when test="searchType1 == 'notYet'">
+			report_result is null
+		</when>
+		<otherwise>
+			report_result is not null
+		</otherwise>
+	</choose>
+</select>
+
+<select id="reportedGChatList" parameterType="Pagination.SearchDTO">
+	select *
+	from report
+	where gmessage_id is not NULL and 
+	<choose>
+		<when test="searchType1 == 'notYet'">
+			report_result is null
+		</when>
+		<otherwise>
+			report_result is not null
+		</otherwise>
+	</choose>
+	order by result_time desc, report_time desc, report_id desc
+	limit #{pagination.limitStart}, #{recordSize}
+</select>
+
+<select id="reportedGChatCnt" resultType="int" parameterType="Pagination.SearchDTO">
+	select count(*)
+	from report
+	where gmessage_id is not NULL and
+	<choose>
+		<when test="searchType1 == 'notYet'">
+			report_result is null
+		</when>
+		<otherwise>
+			report_result is not null
+		</otherwise>
+	</choose>
+</select>
+<!-- ////////////////////////////////////////// 채팅부분 /////////////////////////////////////////////////////////// -->
+
+</mapper>
+

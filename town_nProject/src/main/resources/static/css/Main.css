@@ -1,0 +1,347 @@
+@charset "UTF-8";
+
+*{
+	margin:0; padding:0;
+}
+
+html{
+	width:1900px;
+	background: #E3E2E0;
+	
+}
+
+body{
+	width:80%;
+	margin:50px auto;
+	padding:0 20px;
+	padding-bottom: 30px;
+	padding-top:10px;
+	position:relative;
+	background: #f2f2f2;
+	box-shadow: 5px 5px 5px gray;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.overflow {
+  overflow: hidden;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+}
+.button{
+    color: #182434;
+    border: 1px solid #DEDEDE;
+    border-radius: 4px;}
+.wt_icon.ico_wt1 {
+    background-image: url(/img/icon_flat_wt1.svg);
+}
+.wt_icon.ico_wt2 {
+    background-image: url(/img/icon_flat_wt2.svg);
+}
+.wt_icon.ico_wt3 {
+    background-image: url(/img/icon_flat_wt3.svg);
+}
+.wt_icon.ico_wt4 {
+    background-image: url(/img/icon_flat_wt4.svg);
+}
+.wt_icon.ico_wt5 {
+    background-image: url(/img/icon_flat_wt5.svg);
+}
+.wt_icon.ico_wt6 {
+    background-image: url(/img/icon_flat_wt6.svg);
+}
+.wt_icon.ico_wt7 {
+    background-image: url(/img/icon_flat_wt7.svg);
+}
+.wt_icon.ico_wt8 {
+    background-image: url(/img/icon_flat_wt8.svg);
+}
+.wt_icon.ico_wt9 {
+    background-image: url(/img/icon_flat_wt9.svg);
+}
+.wt_icon.ico_wt10 {
+    background-image: url(/img/icon_flat_wt10.svg);
+}
+.wt_icon {
+    display: inline-block;
+    vertical-align: top;
+    width: 100px;
+    height: 100px;
+    background-size: 100px 100px;
+    -webkit-background-size: 100px 100px;
+}
+
+
+html.open {
+    overflow: hidden;
+}
+
+.btn {
+  position: fixed;
+  left: 0px;
+  top: 50%;
+  cursor: pointer;
+  transform:translateY(-50%);
+  
+}
+
+
+#menu {
+  width: 300px;
+  height: 78%;
+  position: fixed;
+  top: 50%;
+  transform:translateY(-50%);
+  left: -302px;
+  z-index: 10;
+  border: 1px solid #dcd9d8;
+  background-color: #dcd9d8;
+  text-align: left;
+  transition: All 0.2s ease;
+  -webkit-transition: All 0.2s ease;
+  -moz-transition: All 0.2s ease;
+  -o-transition: All 0.2s ease;
+  min-height:636px;
+   
+}
+
+#menu.open {
+  left: 0px;
+}
+.page_cover.open {
+	display: block;
+}
+
+.page_cover {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+    top: 0px;
+    left: 0px;
+	background-color: rgba(0,0,0,0.4);
+	z-index: 4;
+	display: none;
+}
+#board_menu {
+	margin-top:30px;
+	margin-left:40px;
+}
+.innerMenu {
+	line-height: 1.5;
+	list-style-position: inside;
+	list-style-type: "> ";
+	font-size : 20px;
+	font-weight : normal;
+}
+.outerMenu,.notice {
+	line-height: 2.5;
+	margin: 0 auto;
+	list-style-type: none;
+	font-size : 25px;
+	font-weight : bold;
+}
+@media (max-height: 900px) {
+.innerMenu {
+	font-size : 1.1rem;
+}
+.outerMenu,.notice {
+	font-size : 1.3rem;
+}
+}
+
+.wrapper{
+	display: flex; margin-top: 10px;
+}
+.firstBox{
+	border-right:1px solid #182434; width:20%; height:1400px;
+}
+.firstBox .title{
+	width:90%;padding:10px 0; margin: 0 auto; text-align: center; border-top:2px solid #182434; border-bottom:2px solid #182434;
+}
+.firstBox .title p:last-child {
+	letter-spacing :12px;	
+}
+.firstBox .contentBox{
+	width:90%;padding:20px 0; margin: 0 auto; border-bottom:2px solid #182434;
+}
+.firstBox .contentBox:last-child{
+	border:none;
+}
+.firstBox .contentBox .contentTitle{
+	font-weight: 800; font-size: 20px;
+}
+.firstBox .contentBox .content{
+	margin-top:10px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+}
+
+.firstBox .contentBox .button{
+	margin-top:10px;padding:8px 78px; font-size:1rem;
+}
+.knowBox .button{
+	margin-top:10px;padding:8px 78px; font-size:1rem;
+}
+.secondBox{
+	border-right:1px solid #182434;width:60%;
+}
+.photoFrame{
+	width:95%; margin: 0 auto; text-align: center; overflow: hidden;
+}
+.photoInformBox{
+	width:95%;padding:10px 0; margin: 10px auto; text-align: center; border-top:8px solid #182434; border-bottom:3px solid #182434;
+}
+.photoInformBox .contentBox{
+	display: flex; margin-top:20px;
+}
+.photoInformBox .contentBox .content{
+	padding:10px; width:50%; border-right: 1px solid #182434; text-align: left;
+}
+.photoInformBox .contentBox .content .contentTitle{
+	font-weight: 800; font-size: 20px;
+}
+.photoInformBox .contentBox .content .id{
+	font-weight: 800; font-size: 15px;
+}
+.photoInformBox .contentBox .content .detail{
+	margin-top:10px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 7; overflow: hidden; height:162px;
+}
+.secondBox button{
+	margin-top:10px;padding:8px 145px; font-size:1rem;
+}
+.commentBox{
+	padding:10px; width:48%; text-align: left; 
+	}
+.commentBox .comment{
+	margin-bottom:16px; color: #182434; border: 1px solid #DEDEDE; border-radius: 4px; background: transparent; width:97%; display: flex; align-items: center; justify-content: space-evenly; padding: 14px 5px;
+}
+.commentBox .comment .id{
+	width:20%; padding-top: 4px;
+}
+.commentBox .comment .detail{
+	width:70%;
+}
+.secondBox .contentBox{
+	display: flex; margin-top:20px; width: 97%; padding: 10px 0; margin: 10px auto;
+}
+.townNews{
+	position:relative; padding:13px 10px 13px 10px; width:47.3%; border-right: 1px solid #182434; margin-left: 11.5px;
+}
+.newsTitle{
+	letter-spacing :5px; position: absolute; top: 10%; left: 50%; transform: translateX(-50%); color: white; font-size: 20px;
+}
+.townNews .newsBox{
+	width:85%; position: absolute; top: 35%; left: 48.9%; transform: translateX(-50%);
+}
+.townNews .news{
+	width:100%; border-radius:7px; margin-bottom:7px; display: flex; background: #E3E2E0; height:40px; align-items: center; justify-content: space-between; cursor: pointer;
+}
+.townNews .content{
+	width:70%; text-align: center;
+}
+.placeofmeeting{
+	padding:13px 10px 10px 10px; width:44.3%; text-align: center;
+}
+.placeofmeeting .title{
+	border-bottom:5px double #182434; border-top: 5px double #182434; font-size: 20px; padding:10px 0; font-weight: 800
+}
+.placeofmeeting .content{
+	 border-bottom: 2px solid #182434; font-size: 15px; padding:9px 0; cursor: pointer;
+}
+.thirdBox{
+	width:20%;
+}
+.weatherBox{
+	width:90%;padding:10px 0; margin: 0 auto; text-align: center; border:1px solid #182434;
+}
+.weatherBox .title{
+	margin:20px 0;
+}
+.weatherBox .town{
+	font-size: 18px; padding:6px 0 3px 0; margin:0 7px; background: #182434; color:white
+}
+.weatherBox .weather{
+	display: flex; align-items: center; justify-content: center; background: white; margin:0px 7px 20px 7px;
+}
+.temperatue{
+	font-size: 35px; font-weight: 800;
+}
+.compareTemp{
+	display: flex; align-items: center; justify-content: space-evenly; margin-bottom:10px;
+}
+.compareTemp p{
+	font-size: 15px;
+}
+.compareTemp p:nth-child(2){
+	font-size: 20px; font-weight: 800;
+}
+.compareTemp p:nth-child(4){
+	font-weight: 800;
+}
+.etc{
+	display: flex; align-items: center; justify-content: space-evenly; margin-bottom:20px;
+}
+.etc p:nth-child(odd){
+	font-size: 15px; color:#8b8b8b
+}
+.etc p:nth-child(even){
+	font-size: 15px; font-weight: 800
+}
+.thirdBox .titleBox{
+	padding:20px 0; border-radius: 5px; background: #182434; width: 90%; padding: 10px 0; margin: 15px auto; text-align: center; 
+}
+.thirdBox .titleBox .title{
+	font-size: 30px; color:white; font-weight: 800
+}
+.knowBox{
+	width: 90%; margin: 15px auto;
+}
+.knowBox .title{
+	font-size: 20px; font-weight: 800;
+}
+.knowBox .content{
+	margin-top:10px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; overflow: hidden;font-size: 15px;
+}
+.knowBox .subtitle{
+	font-size: 20px; font-weight: 800;
+}
+.date{
+	margin-top: 5px!important;
+}
+button{cursor: pointer;}
+button:hover{background: #e1e1e1; border-color:#e1e1e1;}
+li.innerMenu{cursor: pointer;}
+.topbtn{
+	bottom: 40px;
+    border: 1px solid #d6dbe2;
+    background-color: #fff;
+    width: 62px;
+    height: 62px;
+    bottom: 40px;
+    border-radius: 31px;
+    padding: 0;
+    min-width: 62px;
+    font-size: 0px;
+    box-shadow: 0 2px 2px rgba(0,0,0,.16)!important;
+    box-sizing: border-box;
+    transition: .3s;
+    z-index: 149;
+    position: fixed;
+    right: 130px;
+    color:black;
+}
+.topbtn:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 62px;
+    height: 62px;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 62px;	
+    background-image: url(/img/top.svg);
+}

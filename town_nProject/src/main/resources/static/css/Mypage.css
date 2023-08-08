@@ -1,0 +1,119 @@
+@charset "UTF-8";
+
+#myPage_layout {
+	width : 100%; 
+	display : flex; 
+	justify-content : space-between;  
+}
+#myPage_menu {
+	width : 20%; 
+	border-right : 1px solid #182434;
+	margin-top : 30px;
+}
+#myPage_main {
+	width : 80%; 
+	margin-top : 30px;
+	padding : 20px 0px;
+	display : flex; 
+	align-content : flex-start;
+	flex-direction: row; 
+	flex-wrap: wrap;
+}
+#myPage_name {
+	width : 100%;
+	height : 40px;
+	line-height : 40px;
+	font-size : 37px;
+	font-weight : bold;
+	margin-top : 30px;
+	margin-bottom : 50px;
+	margin-left : 50px;
+}
+#myPage_page {
+	width : 100%; height : auto;
+	/* display : flex; 
+	align-content: flex-start;
+	flex-direction: row;
+	flex-wrap: wrap; */
+	margin-left : 70px;
+}
+#myinfo_box {
+	margin-top : 20px;
+	display : flex; 
+	
+	#my_profile_img {
+		width : 80px; height : 80px;
+		border-radius: 70%;
+		margin-right : 20px;
+	    overflow: hidden;
+		> img {
+			width : 100%; height : 100%;
+			object-fit: cover;
+		}
+
+	}
+	
+	#my_profile_box {
+		height : 80px;
+		> div {
+			margin-bottom : 5px;
+		}	
+		#my_id, #my_email {
+			font-size : 17px;
+			font-weight: bold;
+		}
+	}
+}
+#myinfo_table {
+	margin-top : 70px;
+
+	> table {
+		border-top : 1px solid black;
+		border-collapse: collapse;
+	}
+	> table tr th {
+		width : 250px;
+		height : 50px;
+		border-bottom: 1px solid #444444;
+    	border-left: 1px solid #444444;
+		font-size : 19px;
+	}
+	> table tr td {
+		width : 250px;
+		height : 100px;	
+		text-align: center;
+		border-bottom: 1px solid #444444;
+    	border-left: 1px solid #444444;
+		font-size : 16px;
+	}
+	> table tr th:first-child, td:first-child {
+    	border-left: none;
+  }
+	
+}
+
+#my_profile_img a {
+	width: 25px;
+	height: 25px;
+	position: absolute;
+	top: 486px;
+	left: 450px;
+	background-image: url(/img/camera-icon.png);
+	background-size: 25px 25px;
+	cursor: pointer;
+}
+
+#my_grade_box {
+	margin-left: 77px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#my_grade_box progress {
+	width: 500px;
+	height: 50px;
+}
+#my_grade_box span {
+	font-size: 15px;
+	margin-left: 20px;
+}

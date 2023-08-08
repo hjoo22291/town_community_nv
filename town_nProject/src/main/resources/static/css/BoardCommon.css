@@ -1,0 +1,151 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {font-family : 'GmarketSansMedium';}
+
+/* ------------ 게시판 전체 화면구성 ------------ */
+html {
+	width : 1900px; 
+	background: #E3E2E0;
+}
+body {
+	width : 80%; 
+	margin : 50px auto; 
+	padding : 0px 20px; 
+	background : #F2F2F2;
+	padding-top : 10px;
+	padding-bottom : 30px;
+	/* background-image: url(/img/newspaper2.svg); */
+	background-size: cover;
+	filter: drop-shadow(5px 5px 5px gray);
+}
+#board_layout {
+	width : 100%; 
+	display : flex; 
+	justify-content : space-between;  
+}
+#board_menu {
+	width : 20%; 
+	border-right : 1px solid #182434;
+	margin-top : 30px;
+}
+#board_main {
+	width : 80%; 
+	margin-top : 30px;
+	padding : 20px 0px;
+	display : flex; 
+	align-content : flex-start;
+	flex-direction: row; 
+	flex-wrap: wrap;
+}
+
+/* ------------ 게시판 메뉴 부분 ------------ */
+.allMenu {
+	margin-top : 30px;
+	margin-left : 20px;
+ 	padding-inline-start: 10px;
+}
+
+.outerMenu {
+	margin-top : 40px;
+ 	margin-bottom : 15px;
+	padding-inline-start: 10px;
+	list-style-type: none;
+	font-size : 27px;
+	font-weight : bold;
+	line-height: 2;
+}
+
+.outerMenu:first-of-type:hover {
+	cursor: pointer;
+}
+
+.outerMenu:last-of-type:hover {
+	cursor: pointer;
+}
+
+.innerMenu {
+	line-height: 2;
+	font-size : 22px;
+	list-style-type: "> ";
+	font-weight : normal;
+	cursor: pointer;
+}
+.inner_menu_a_link_photo {
+	color: inherit;
+  text-decoration: none;
+}
+/* ------------ 메인 부분 ------------ */
+#board_name {
+	width : 100%;
+	height : 40px;
+	line-height : 40px;
+	font-size : 37px;
+	font-weight : bold;
+	margin-top : 30px;
+	margin-bottom : 20px;
+	margin-left : 50px;
+}
+#board_page {
+	width : 100%; height : auto;
+	display : flex;
+	align-content: flex-start;
+	flex-direction: row; 
+	flex-wrap: wrap; 
+	margin-left : 50px;
+}
+#board_pagingNum {
+	width : 100%; height : 30px;
+	margin-left : 50px;
+	margin-top : 20px;
+	display : flex;
+	justify-content: center;
+}
+#board_pagingNum > div {
+	display : flex;
+	/* justify-content: center;
+	align-items: center; */		
+}
+.pageNumBtn, .pageBtn, .photoPageBtn, .photoPageNumBtn{
+	font-size : 15px;
+	margin : 0.5px;
+	border : none;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+/* ------------ 좋아요/싫어요 버튼 관련 ------------ */
+#good_hate_area {
+	display : flex;
+	justify-content: center;
+	margin-top : 40px;		
+}
+#good_hate_btnBox {
+	display : flex;
+	width : 110px;
+	justify-content: space-between;
+}
+.good_hate_infoDiv {
+		/* margin-right : 10px; */
+		text-align: center;
+	}
+#good_btn, #hate_btn {
+	display : none; 
+}
+#good_iconImg{
+	cursor: pointer; 
+}
+#hate_iconImg{
+	cursor: pointer; 
+}
+#good_cnt, #hate_cnt {	
+	text-align: center;
+	font-size : 15px;
+}
+

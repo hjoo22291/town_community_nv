@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="Dao.GChatDAO">
+	<insert id = "createGchatroom" parameterType = "gchatroomdto">
+		INSERT INTO gchat_room(gchat_id, gchatroom_createdAt, board_id) VALUES (default, default, #{board_id});
+	</insert>
+	
+	<insert id = "insertGmessage" parameterType = "gmessagedto">
+		INSERT INTO gchat_message() VALUES (default, #{gmessage_content}, default, #{member_id}, #{gchat_id}, default);
+	</insert>
+	
+	<insert id = "createGchatlist" parameterType = "gchatlistdto">
+		INSERT INTO gchat_list(member_id, gchat_id, board_id, chatroom_name) VALUES (#{member_id}, #{gchat_id}, #{board_id}, #{chatroom_name});
+	</insert>
+	
+	<select id="selectGchat" parameterType = "gchatlistdto">
+		SELECT gchat_id FROM gchat_list WHERE (board_id = #{board_id});
+	</select>
+	
+	<select id="selectGchatonroom" parameterType = "gchatroomdto">
+		SELECT gchat_id FROM gchat_room WHERE (board_id = #{board_id});
+	</select>
+	
+	<select id="checkGchat" parameterType = "gchatlistdto">
+		SELECT * FROM gchat_list WHERE (member_id = #{member_id}) and (board_id = #{board_id});
+	</select>
+	
+	<select id="summonMessage" parameterType = "gmessagedto">
+		SELECT * FROM gchat_message WHERE (gchat_id = #{gchat_id})
+		order by gmessage_sendAt ASC;
+	</select>
+	
+	<select id = "selectGchatlist" parameterType = "gchatlistdto" resultType = "gchatlistdto">
+		SELECT * FROM gchat_list WHERE (member_id = #{member_id});
+	</select>
+	
+	<select id= "selectGmessageid" parameterType = "gmessagedto">
+		SELECT gmessage_id FROM gchat_message WHERE (member_id = #{member_id}) 
+		and (gchat_id = #{gchat_id}) 
+		and (gmessage_sendAt = #{gmessage_sendAt});
+	</select>
+	
+	<select id="selectGmessagebyid" parameterType="int" resultType = "gmessagedto">
+		SELECT * FROM gchat_message WHERE (gmessage_id = #{gmessage_id});
+	</select>
+  </mapper>

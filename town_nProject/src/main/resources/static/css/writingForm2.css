@@ -1,0 +1,244 @@
+@charset "UTF-8";
+
+/* 글 작성 부분 */
+#board_name {
+	display: flex;
+	flex-direction: row;
+	margin-right: 30px;
+}
+
+#board-name {
+	width: 25%;
+	font-size: 1.5rem;
+	margin-right: 15px;
+	padding: 10px;
+	height: 72px;
+}
+#write-form {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+#write-title {
+	width: 75%;
+	height: 50px;
+	font-size: 1.5rem;
+	padding: 10px;
+}
+
+#board_page {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	margin-right: 30px;
+}
+
+#content-header {
+	background-color: white;
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	border: 2px solid black;
+	border-bottom: 0px;
+	display: flex;
+}
+
+#font-customize {
+	margin-left: 30px;
+	display: flex;
+	width: 700px;
+	justify-content: space-between;
+	align-items: center;
+	display: flex;
+}
+
+#font-customize ul {
+	line-height: 70px;
+	list-style: none;
+	display: flex;
+	margin: 0px;
+	margin-left: 10px;
+	padding: 0px;
+}
+
+#font-customize li {
+	display: flex;
+	align-items: center;
+}
+
+#font-customize button {
+	border: none;
+}
+
+#select-font {
+	height: 40px;
+	width: 120px;
+	margin-right: 10px;
+}
+
+#select-size {
+	height: 40px;
+	width: 80px;
+}
+
+#font-style button {
+	background: url("/img/text_tool_set2.png");
+	background-size: 1550px auto;
+	width: 40px;
+	height: 40px;
+}
+
+#font-style>li:nth-of-type(1) button {
+	background-position: -223px 244px;
+}
+
+#font-style>li:nth-of-type(2) button {
+	background-position: -265px 244px;
+}
+
+#font-style>li:nth-of-type(3) button {
+	background-position: -307px 244px;
+}
+
+#font-style>li:nth-of-type(4) button {
+	background-position: -348px 244px;
+}
+#font-style>li:nth-of-type(1) button.activated {
+	background-position: -223px 203px;
+}
+
+#font-style>li:nth-of-type(2) button.activated {
+	background-position: -265px 203px;
+}
+
+#font-style>li:nth-of-type(3) button.activated {
+	background-position: -307px 203px;
+}
+
+#font-style>li:nth-of-type(4) button.activated {
+	background-position: -348px 203px;
+}
+
+#font-style>li:nth-of-type(5) button {
+	width: 59px;
+	background-position: -389px 244px;
+}
+
+#font-justify {
+	display: flex;
+	justify-content: space-between;
+	height: 40px;
+}
+
+#font-justify button {
+	font-size: 0px;
+	background: url("/img/text_tool_set2.png");
+	background-size: 1550px auto;
+	width: 40px;
+	height: 40px;
+	padding: 0px;
+	background-color: white;
+}
+
+#font-justify>li:nth-of-type(1) button {
+	background-position: -508px 244px;
+}
+#font-justify>li:nth-of-type(2) button {
+	background-position: -550px 244px;
+}
+#font-justify>li:nth-of-type(3) button {
+	background-position: -591px 244px;
+}
+#font-justify>li:nth-of-type(4) button {
+	background-position: -632px 244px;
+}
+
+#font-justify>li:nth-of-type(1) button.activated {
+	background-position: -508px 203px;
+}
+#font-justify>li:nth-of-type(2) button.activated {
+	background-position: -550px 203px;
+}
+#font-justify>li:nth-of-type(3) button.activated {
+	background-position: -591px 203px;
+}
+#font-justify>li:nth-of-type(4) button.activated {
+	background-position: -632px 203px;
+}
+
+#image-video-etc-button {
+	display: flex;
+	flex-direction: row;
+	margin-left: auto;
+}
+
+#image-video-etc-button img {
+	width: 40px;
+	height: 40px;
+}
+
+.btn-upload {
+	font-size: 10px;
+	width: 70px;
+	height: 70px;
+	background: #fff;
+	border: 0px;
+	border-right: 2px solid black;
+	font-weight: 500;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 500
+}
+
+#image-video-etc-button label:first-of-type div {
+	border-left: 2px solid black;
+}
+
+#image-video-etc-button label:last-of-type div {
+	border-right: none;
+}
+
+#image {
+	display: none;
+}
+
+#video {
+	display: none;
+}
+
+#file {
+	display: none;
+}
+
+#content-main {
+	width: 100%;
+	height: 100%;
+	border: 2px solid black;
+	margin-bottom: 20px;
+}
+
+#content-footer {
+	width: 100%;
+	display: flex;
+}
+
+#write-btn {
+	color: black;
+	border: 2px solid #182434;
+	margin-left: auto;
+	font-size: 1.5rem;
+	border-radius: 15px;
+	width: 130px;
+	height: 50px;
+	font-size: 1.5rem;
+	font-size: 1.5rem;
+}
+
+#write-btn:hover {
+	background-color: #182434;
+	color: white;
+}

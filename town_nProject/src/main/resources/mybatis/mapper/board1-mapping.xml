@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Dao.BoardDAO1">
+
+<!-- 글 작성시 db에 저장 -->
+<insert id="insertBoard" parameterType="boarddto">
+	insert into board
+	(
+		board_name_inner, 
+		board_title, 
+		board_contents, 
+		board_preview,
+		board_imgurl, 
+		board_videourl, 
+		board_fileurl, 
+		place_name, 
+		place_road_address, 
+		place_address,
+		place_tel, 
+		place_lat, 
+		place_long,
+		writer, 
+		town_id
+	)
+	values 
+	(
+		#{board_name_inner}, 
+		#{board_title}, 
+		#{board_contents}, 
+		#{board_preview},
+		#{board_imgurl}, 
+		#{board_videourl}, 
+		#{board_fileurl}, 
+		#{place_name}, 
+		#{place_road_address}, 
+		#{place_address},
+		#{place_tel}, 
+		#{place_lat}, 
+		#{place_long},
+		#{writer}, 
+		#{town_id}
+	)
+</insert>
+
+<!-- 관리자가 방금 올린 공지사항 board_id 가져오기 -->
+<select id="getCurrentNoticeBoardId" parameterType="hashmap" resultType="int">
+	select board_id from board where
+	board_name_inner = "공지사항" and
+	board_title = #{board_title} and
+	board_contents = #{board_contents} and
+	writer = #{writer}
+	order by writing_time
+</select>
+
+<!-- 관리자가 공지사항 올릴시 notice_board 테이블에 공지 올릴 동네 아이디들 저장-->
+<insert id="insertNoticeBoard" parameterType="hashmap">
+	insert notice_board(board_id, town_ids) values (#{board_id}, #{town_ids})
+</insert>
+
+<!-- 각 공지사항을 올린 동네 아이디들을 가져옴 -->
+<select id="getNoticeTownIds" parameterType="int" resultType="String">
+	select town_ids from notice_board where board_id = #{board_id}
+</select>
+
+<!-- 공지사항 내용 가져오기 -->
+<select id="getNoticeDetail" parameterType="int" resultType="boarddto">
+	select * from board where board_name_inner = "공지사항"
+	and board_id = #{board_id}
+	and printout is true
+</select>
+
+<!-- 게시판 소분류 선택시 게시글 개수 가져오기 -->
+<select id="getArticleCount" parameterType="hashmap" resultType="int">
+	select count(*) from board 
+	where board_name_inner = #{board_name_inner}
+	and printout is true
+	<if test='!board_name_inner.equals("공지사항")'>
+		and town_id = #{town_id}
+	</if>
+</select>
+
+<!-- 게시판 소분류 선택시 게시글 목록 가져오기(페이징 처리O) -->
+<select id="getPagingBoardlist" parameterType="hashmap" resultType="boarddto">
+	select * from board 
+	where board_name_inner = #{board_name_inner}
+	and printout is true
+	<if test='!board_name_inner.equals("공지사항")'>
+		and town_id = #{town_id}
+	</if>
+	order by ${ordercol} desc, writing_time desc
+	limit #{limitindex}, #{limitcount}
+</select>
+
+<!-- 게시판 검색시 게시글 개수 가져오기 -->
+<select id="getBoardSearchCount" parameterType="hashmap" resultType="int">
+	select count(*) from board 
+	where board_name_inner = #{board_name_inner} 
+	and town_id = #{town_id}  
+	and printout is true and (
+	<foreach item="sort" separator=" or " collection="sortList">
+		${sort} like #{keyword}
+	</foreach>)
+</select>
+
+<!-- 게시판 검색시 게시글 가져오기(페이징 처리 O) -->
+<select id="getBoardSearchList" parameterType="hashmap" resultType="boarddto">
+	select * from board 
+	where board_name_inner = #{board_name_inner} 
+	and town_id = #{town_id} 
+	and printout is true and (
+	<foreach item="sort" separator=" or " collection="sortList">
+		${sort} like #{keyword}
+	</foreach>)
+	order by ${ordercol} desc, writing_time desc
+	limit #{limitindex}, #{limitcount}
+</select>
+
+<!-- 공지사항 게시글 전체 개수 가져오기 -->
+<select id="getNoticeCnt" resultType="int">
+	select count(*) from board where board_name_inner = "공지사항"
+	and printout is true
+</select>
+
+<!-- 공지사항 게시글 페이징 처리해서 가져오기 -->
+<select id="getNoticeList" parameterType="hashmap" resultType="boarddto">
+	select * from board where board_name_inner = "공지사항"
+	and printout is true
+	order by writing_time desc
+	limit #{limitindex}, #{limitcount}
+</select>
+ 
+<!-- 공지사항 게시글 검색 결과 전체 개수 가져오기 1(제목, 내용, 작성자로 검색) -->
+<select id="getNoticeSearchCnt1" parameterType="hashmap" resultType="int">
+	select count(*) from board where board_name_inner = "공지사항"
+	and printout is true
+	and (
+	<foreach item="sort" separator=" or " collection="sortList">
+		${sort} like concat("%", #{keyword}, "%")
+	</foreach>)
+</select>
+
+<!-- 공지사항 게시글 검색 결과 전체 개수 가져오기 2(동네 아이디로 검색) -->
+<select id="getNoticeSearchCnt2" parameterType="hashmap" resultType="int">
+	select count(*) from board where board_name_inner = "공지사항"
+	and town_id = #{keyword}
+	and printout is true
+</select>
+
+<!-- 공지사항 게시글 검색 결과 전체 개수 가져오기 3(동네 이름으로 검색) -->
+<select id="getNoticeSearchCnt3" parameterType="hashmap" resultType="int">
+	select count(*) from board b join town t
+	on b.town_id = t.town_id
+	where t.town_name like concat("%", #{keyword}, "%")
+	and printout is true
+</select>
+
+<!-- 공지사항 게시글 검색 결과 페이징 처리해서 가져오기 4(전체 분류로 검색)-->
+<select id="getNoticeSearchCnt4" parameterType="hashmap" resultType="int">
+	select count(a.board_id) from (
+		select board_id from board where board_name_inner = "공지사항"
+		and printout is true
+		and (
+			board_title like concat("%", #{keyword}, "%") or
+			board_preview like concat("%", #{keyword}, "%") or
+			writer like concat("%", #{keyword}, "%")
+		)
+		union
+		select board_id from board 
+		where board_name_inner = "공지사항"
+		and town_id = #{keyword}
+		and printout is true
+		union
+		select board_id from board b join town t
+		on b.town_id = t.town_id
+		where t.town_name like concat("%", #{keyword}, "%")
+		and printout is true
+	) as a
+</select>
+ 
+<!-- 공지사항 게시글 검색 결과 페이징 처리해서 가져오기 1 -->
+<select id="getNoticeSearchList1" parameterType="hashmap" resultType="boarddto">
+	select * from board where board_name_inner = "공지사항"
+	and printout is true
+	and (
+	<foreach item="sort" separator=" or " collection="sortList">
+		${sort} like concat("%", #{keyword}, "%")
+	</foreach>)
+	order by writing_time desc
+	limit #{limitindex}, #{limitcount}
+</select>
+
+<!-- 공지사항 게시글 검색 결과 페이징 처리해서 가져오기 2 -->
+<select id="getNoticeSearchList2" parameterType="hashmap" resultType="boarddto">
+	select * from board where board_name_inner = "공지사항"
+	and town_id = #{keyword}
+	and printout is true
+	order by writing_time desc
+	limit #{limitindex}, #{limitcount}
+</select>
+	
+<!-- 공지사항 게시글 검색 결과 페이징 처리해서 가져오기 3 -->
+<select id="getNoticeSearchList3" parameterType="hashmap" resultType="boarddto">
+	select * from board b join town t
+	on b.town_id = t.town_id
+	where t.town_name like concat("%", #{keyword}, "%")
+	and printout is true
+	order by writing_time desc
+	limit #{limitindex}, #{limitcount}
+</select>
+
+<!-- 공지사항 게시글 검색 결과 페이징 처리해서 가져오기 4 -->
+<select id="getNoticeSearchList4" parameterType="hashmap" resultType="boarddto">
+	(
+		select board_id, board_title, board_preview, writer, town_id, writing_time, update_time from board 
+		where board_name_inner = "공지사항"
+		and printout is true
+		and (
+			board_title like concat("%", #{keyword}, "%") or
+			board_preview like concat("%", #{keyword}, "%") or
+			writer like concat("%", #{keyword}, "%")
+	  )
+	)
+	union
+	(
+		select board_id, board_title, board_preview, writer, town_id, writing_time, update_time from board 
+		where board_name_inner = "공지사항"
+		and town_id = #{keyword}
+		and printout is true
+	)
+	union
+	(
+		select board_id, board_title, board_preview, writer, b.town_id as town_id, writing_time, update_time from board b join town t
+		on b.town_id = t.town_id
+		where t.town_name like concat("%", #{keyword}, "%")
+		and printout is true
+	)
+	order by writing_time desc
+	limit #{limitindex}, #{limitcount};
+</select>
+
+<!-- 회원의 동 이름 가져오기 -->
+<select id="getMemberDongAddress" parameterType="int" resultType="String">
+	select town_name from town where town_id = #{member_town_id}
+</select>
+
+<!-- 프로필 사진 업데이트 -->
+<update id="updateProfileImage" parameterType="hashmap">
+	update member set profile_image = #{profile_image}
+	where member_id = #{member_id}
+</update>
+
+<!-- town 테이블의 모든 동 이름 가져오기 -->
+<select id="getAllTownName" resultType="String">
+	select town_name from town order by town_id asc
+</select>
+
+<!-- 회원이 오늘 작성한 글 개수 가져오기 -->
+<select id="getWriteBoardCnt" parameterType="hashmap" resultType="int">
+	select count(*) from point where 
+	member_id = #{member_id} and 
+	point_method = #{point_method} and
+	point_time like concat(#{point_time}, "%")
+</select> 
+ 
+<!-- 글 작성시 point 테이블에 insert -->
+<insert id="insertWriteBoardPoint" parameterType="hashmap">
+	insert point(member_id, point_method, point_get) values
+	(#{member_id}, #{point_method}, #{point_get})
+</insert>
+ 
+<!-- 글 작성시 포인트 5점 회원에게 부여 -->
+<update id="updateMemberPoint" parameterType="hashmap">
+	update member set point = point + #{point_get} where member_id = #{member_id}
+</update>
+
+<!-- 공지사항 수정시 수정한 내용을 board 테이블에 update --> 
+<update id="updateNoticeDetail" parameterType="boarddto">
+	update board set
+	board_title = #{board_title},
+	board_contents = #{board_contents},
+	board_imgurl = #{board_imgurl},
+	board_fileurl = #{board_fileurl},
+	board_preview = #{board_preview},
+	town_id = #{town_id}
+	where board_id = #{board_id}
+</update>
+
+<!-- 공지사항 수정시 수정한 동네를 notice_board 테이블에 update -->
+<update id="updateNoticeTownIds" parameterType="hashmap">
+	update notice_board set town_ids = #{town_ids} where board_id = #{board_id}
+</update>
+ 
+<!-- grade 테이블의 필요한 값 가져오기 -->
+<select id="getGradeTable" resultType="hashmap">
+	select grade_name, grade_cut_left, grade_cut_right from grade order by grade_cut_left
+</select>
+ 
+<!-- 회원의 현재 등급, 포인트를 가져오기 -->
+<select id="getMemberGradeAndPoint" parameterType="String" resultType="hashmap">
+	select grade_name, point from member where member_id = #{member_id} 
+</select> 
+
+<!-- 회원의 등급을 업데이트 -->
+<update id="updateMemberGrade" parameterType="hashmap">
+	update member set grade_name = #{grade_name} 
+	where member_id = #{member_id}
+</update>
+
+</mapper>
+

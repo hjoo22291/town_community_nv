@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'VitroCore';
+    font-weight: normal;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/vitro/VitroCore.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/vitro/VitroCore.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/vitro/VitroCore.woff2') format('woff2'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/vitro/VitroCore.woff') format('woff'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/vitro/VitroCore.ttf') format("truetype");
+    font-display: swap;
+}
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+*{
+	font-family: 'GmarketSansMedium';
+}
+body{
+	width:1900px;
+	background: #E3E2E0;
+}
+.logo_container{
+	display:flex; 
+	align-items: center;	
+	justify-content: center; 
+	height:100px;
+	border-top: 13px solid #182434; 
+	border-bottom: 5px solid #182434;
+}
+.logo {
+	font-family: 'VitroCore';
+	font-size:60px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: auto;
+}
+input {
+	border : 1px solid #E3E2E0;
+	border-radius: 30px;
+	text-align: center;
+	vertical-align: middle;
+	width: 500px;
+    height:60px;
+    font-size : 20px;
+    margin-top:14px;
+}
+input[type=checkbox] {
+position: relative;
+transform : scale(0.37);
+margin-top:-7px;
+}
+#id{
+	margin-top:0px;
+}
+#result-2{
+	margin-top:5px;
+}
+.pw-check{
+	
+	margin-left:-230px;
+}
+#mark{
+	margin-left:-480px;
+}
+#mark1{
+	margin-left:-480px;
+}
+#num{
+	width:300px;
+}
+#address-1{
+	width:370px;
+	background:white;
+}
+#address-2{
+	width:130px;
+	cursor: pointer;
+}
+#num-st{
+	width:200px;
+	font-size:16px;
+	cursor: pointer;
+}
+#num-st1{
+	width:200px;
+	font-size:16px;
+	display:none;
+	cursor: pointer;
+}
+#pw2{
+	margin-top:-10px;
+}
+#join{
+	margin-top:-10px;
+	border : 1px solid #182434;
+}
+#join.on{
+    background-color: #182434;
+    color: white;
+    cursor: pointer;
+}

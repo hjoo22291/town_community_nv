@@ -1,0 +1,129 @@
+@charset "UTF-8";
+
+/* 기본 css 제거 */
+a {
+	color: black;
+	text-decoration: none;
+}
+
+/* 게시글 목록 */
+#board_name {
+	display: flex;
+	justify-content: space-between;
+}
+
+#board-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-right: 30px;
+	table-layout:fixed;
+}
+
+#board-table tr {
+	height: 50px;
+}
+
+#board-table>thead>tr:nth-of-type(1) {
+	background-color: #182434;
+	height: 50px;
+	color: white;
+}
+
+#board-table th {
+	font-size: 20px;
+	font-weight: normal;
+	border-left: 3px solid #dcd9d8;
+	border-right: 3px solid #dcd9d8;
+}
+
+#board-table th:nth-of-type(1) {
+	width: 7%;
+	border-left: none;
+}
+
+#board-table th:nth-of-type(2) {
+	width: 13%;
+}
+
+#board-table th:nth-of-type(3) {
+	width: 48%;
+}
+
+#board-table th:nth-of-type(4) {
+	width: 13%;
+}
+
+#board-table th:nth-of-type(5) {
+	width: 12%;
+}
+
+#board-table th:last-of-type {
+	width: 7%;
+	border-right: none;
+}
+
+#board-table>tbody>tr {
+	border-top: 3px solid #dcd9d8;
+	border-bottom: 3px solid #dcd9d8;
+	height: 40px;
+}
+
+#board-table td {
+	font-size: 18px;
+	text-align: center;
+	border-left: 3px solid #dcd9d8;
+	border-right: 3px solid #dcd9d8;
+	overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+#board-table td a {
+	width: 100%;
+	overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+#board-table td:first-of-type {
+	border-left: none;
+}
+
+#board-table td:last-of-type {
+	border-right: none;
+}
+
+.writing-title:hover {
+	text-decoration: underline;
+}
+
+/* 페이지 번호 */
+#page-container {
+	margin-top: 70px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#pagination span {
+	text-align: center;
+}
+
+#pagination a {
+	font-size: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#pagination a:hover {
+	text-decoration: underline;
+}
+
+#board_search_box {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	margin-top: 20px;
+}
