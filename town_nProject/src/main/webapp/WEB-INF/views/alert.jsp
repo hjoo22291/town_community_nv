@@ -8,9 +8,9 @@
 <title>Insert title here</title>
 <script>
 <%-- 	let member_id = "<%=session.getAttribute("member_id")%>"; --%>
-	let msg =  "<%=session.getAttribute("date")%>";
+	let msg =  "<%=session.getAttribute("msg")%>";
 	let url =  "<%=session.getAttribute("url")%>";
-	alert("회원님은 "+msg+" 까지 정지된 회원입니다");
+	alert(msg);
 	location.href = url;
     
     </script>

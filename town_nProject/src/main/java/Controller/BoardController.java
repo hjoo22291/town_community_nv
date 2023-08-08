@@ -197,6 +197,9 @@ public class BoardController { //안휘주 작성
 			gohresult = "none";
 		}
 		
+		//소모임 채팅 생성 여부 확인
+		int gchatResult = service.Check(board_id);
+		
 		String ctgy = dto.getBoard_name_inner();
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("detaildto", dto);
@@ -210,6 +213,7 @@ public class BoardController { //안휘주 작성
 		mv.addObject("searchdto", searchdto);
 		mv.addObject("response", list);
 		mv.addObject("gohresult", gohresult );
+		mv.addObject("gchatResult", gchatResult );
 		
 		if(ctgy.equals("역대 당선작")) {
 			mv.setViewName("photoExhibitionBoardDetail");			

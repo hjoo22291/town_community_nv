@@ -13,10 +13,9 @@
 
 #board_main {
 	width : 80%; 
-	margin-top : 30px;
-	padding : 50px 26px 20px 42px;
+	padding : 33px 26px 20px 42px;
 	display : flex; 
-	justify-content: center;
+	justify-content: flex-start;
 	flex-direction: row;
 	flex-wrap: wrap;
 }

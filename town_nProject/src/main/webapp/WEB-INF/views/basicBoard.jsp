@@ -27,7 +27,7 @@
 				<button>조회수</button>
 			</div>
 			<div>
-				<c:if test="${!(param.ctgy eq '공지사항')}">
+				<c:if test="${!(param.ctgy == '공지사항' || empty param.ctgy)}">
 					<input type="button" id="writeBtn" value="글쓰기">
 				</c:if>
 			</div>
@@ -74,7 +74,7 @@
 											<img class="include" src="/img/place_icon.png">
 										</c:if>
 									</td>
-									<td>${boardlist.writer}</td>
+									<td>관리자</td>
 									<td>${fn:split(boardlist.writing_time, " ")[0]}</td>
 									<td>${boardlist.good_cnt}</td>
 									<td>${boardlist.view_cnt}</td>

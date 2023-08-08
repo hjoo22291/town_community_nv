@@ -12,54 +12,47 @@
 <link rel="stylesheet" href="/css/BoardCommon.css" />
 <link rel="stylesheet" href="/css/Mypage.css" />
 <link rel="stylesheet" href="/css/Mypage2.css"> 
-<link rel="stylesheet" type="text/css" href="/css/noticeWritingForm.css"/>
+<style>
+.admin_group {
+	font-size : 21px;
+	border : none;
+	background-color : transparent;	
+	cursor: pointer;
+}
+#board-table td{
+	font-size : 15px;
+}
+</style>
 </head>
 <body>
 <jsp:include page="Header.jsp" />
 <div id="myPage_layout">
-	<div id="myPage_menu">
-		<ul class="allMenu">
-      <li class="outerMenu">
-      	관리자 페이지
-      	<ul class="innerMenu">
-		      <li class="innerMenu"><a href="/noticeBoardList">공지사항</a></li>
-		    </ul>
-     	</li>
-		  <li class="outerMenu">
-		    회원관리
-		    <ul class="innerMenu">
-		      <li class="innerMenu">회원정보</li>
-		    </ul>
-		  </li>
-		  <li class="outerMenu">
-		    신고관리
-		    <ul class="innerMenu">
-		      <li class="innerMenu">신고된 글</li>
-		      <li class="innerMenu">신고된 댓글</li>
-		      <li class="innerMenu">신고된 채팅</li>
-		    </ul>
-		  </li>		    
-		</ul>
-	</div>
+	<jsp:include page="adminMenu.jsp" />
+	<link rel="stylesheet" type="text/css" href="/css/noticeWritingForm.css"/>
 	<div id="board_main">
-		<select id="board-name" multiple>
-			<option value="0">전체 동네</option>
-			<c:forEach items="${townNameList}" var="townName" varStatus="vs">
-				<option value="${vs.count}">${townName}</option>
-			</c:forEach>
-		</select>
-		<div id="notice_wrap">
-			<div id="board_name">
-				<input id="write-title" type="text" placeholder="공지사항 제목"/>
-			</div>
-			<div id="board_page">			
-				
-				<div id="editor"></div>
-				<input type="hidden" id="quill_html" name="content">
-				
-				<div id="content-footer">
-					<div id="place-and-write">
-						<button id="write-btn">수정완료</button>
+		<div style="margin-bottom: 20px;">
+			<span style="font-size: 37px; font-weight: bold;">공지사항 수정</span>
+		</div>
+		<div style="display: flex; flex-direction: row; justify-content: center; width: 100%;">
+			<select id="board-name" multiple>
+				<option value="0">전체 동네</option>
+				<c:forEach items="${townNameList}" var="townName" varStatus="vs">
+					<option value="${vs.count}">${townName}</option>
+				</c:forEach>
+			</select>
+			<div id="notice_wrap">
+				<div id="board_name">
+					<input id="write-title" type="text" placeholder="공지사항 제목"/>
+				</div>
+				<div id="board_page">			
+					
+					<div id="editor"></div>
+					<input type="hidden" id="quill_html" name="content">
+					
+					<div id="content-footer">
+						<div id="place-and-write">
+							<button id="write-btn">수정완료</button>
+						</div>
 					</div>
 				</div>
 			</div>

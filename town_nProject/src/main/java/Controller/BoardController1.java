@@ -78,11 +78,10 @@ public class BoardController1 { //김종인 작성
 		mv.setViewName("basicBoard");
 		
 		// ctgy 파라미터 검사
-		if (ctgy.equals("공지사항") || ctgy.equals("HOT 게시판") ||
+		if (ctgy.equals("공지사항") || ctgy.equals("우리 지금 만나") || ctgy.equals("여기 추천!") ||
 			ctgy.equals("나의 일상") || ctgy.equals("사건, 사고 소식") ||
 			ctgy.equals("오늘의 사진") || ctgy.equals("역대 당선작") ||
-			ctgy.equals("같이 줄서요") || ctgy.equals("같이해요 소모임") ||
-			ctgy.equals("분실물센터") || ctgy.equals("심부름센터") ||
+			ctgy.equals("같이해요 소모임") || ctgy.equals("분실물센터") || 
 			ctgy.equals("행사 소식") || ctgy.equals("새로 오픈했어요")) {
 			mv.addObject("boardName", ctgy);
 		} else {
@@ -351,7 +350,7 @@ public class BoardController1 { //김종인 작성
 	}
 	
 	// 프로필 사진 변경 폼 열기
-	@RequestMapping("/changeProfileImg")
+	@GetMapping("/changeProfileImg")
 	public String changeProfileImg() {
 		return "changeProfileImg";
 	}
@@ -372,7 +371,7 @@ public class BoardController1 { //김종인 작성
 		return resultMap;
 	}
 	/*--------------------------------- 관리자 페이지 공지사항 컨트롤러 ---------------------------------*/
-	@RequestMapping("/noticeWritingForm")
+	@GetMapping("/noticeWritingForm")
 	public ModelAndView noticeWritingForm(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		if (session.getAttribute("member_id") == null) {
@@ -474,14 +473,16 @@ public class BoardController1 { //김종인 작성
 			pagingResult = paging(page, totalPostCnt);
 		}
 		
-		ArrayList<String> town_ids = new ArrayList<>();
-		for (BoardDTO dto : boardlist) {
-			int tempBi = dto.getBoard_id();
-			String tempTownIds = service.getNoticeTownIds(tempBi);
-			town_ids.add(tempTownIds);
+		if (!boardlist.isEmpty()) {
+			ArrayList<String> town_ids = new ArrayList<>();
+			for (BoardDTO dto : boardlist) {
+				int tempBi = dto.getBoard_id();
+				String tempTownIds = service.getNoticeTownIds(tempBi);
+				town_ids.add(tempTownIds);
+			}
+			mv.addObject("town_ids", town_ids);
 		}
 
-		mv.addObject("town_ids", town_ids);
 		mv.addObject("selectedPageNum", page);
 		mv.addObject("postCntPerPage", postCntPerPage);
 		mv.addObject("totalPostCnt", totalPostCnt);
@@ -495,7 +496,7 @@ public class BoardController1 { //김종인 작성
 		return mv;
 	}
 	
-	@RequestMapping("/noticeUpdateForm")
+	@PostMapping("/noticeUpdateForm")
 	public ModelAndView noticeUpdateForm(
 			HttpSession session,
 			@RequestParam(value="bi", required=false, defaultValue="0") int board_id

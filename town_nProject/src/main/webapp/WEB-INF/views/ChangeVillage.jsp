@@ -27,6 +27,7 @@
 			    <ul class="innerMenu">
 			      <li class="innerMenu">나의 일상</li>
 			      <li class="innerMenu">사건, 사고 소식</li>
+				  <li class="innerMenu">분실물센터</li>			      
 			    </ul>
 			  </li>
 			  <li>
@@ -39,15 +40,8 @@
 			    <li>
 			    만남의 광장
 			    <ul class="innerMenu">
-			      <li class="innerMenu">같이 줄서요</li>
+			      <li class="innerMenu">우리 지금 만나</li>
 			      <li class="innerMenu">같이해요 소모임</li>
-			    </ul>
-			  </li>
-			    <li>
-			    도움이 필요해요
-			    <ul class="innerMenu">
-			      <li class="innerMenu">분실물센터</li>
-			      <li class="innerMenu">심부름센터</li>
 			    </ul>
 			  </li>
 			    <li>
@@ -55,6 +49,7 @@
 			    <ul class="innerMenu">
 			      <li class="innerMenu">행사 소식</li>
 			      <li class="innerMenu">새로 오픈했어요</li>
+			      <li class="innerMenu">여기 추천!</li>
 			    </ul>
 			  </li>
 			</ul>

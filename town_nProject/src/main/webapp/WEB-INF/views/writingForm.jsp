@@ -30,13 +30,13 @@
 			<select id="board-name">
 				<option>나의 일상</option>
 				<option>사건, 사고 소식</option>
-				<option>오늘의 사진</option>
-				<option>같이 줄서요</option>
-				<option>같이해요 소모임</option>
 				<option>분실물센터</option>
-				<option>심부름센터</option>
+				<option>오늘의 사진</option>
+				<option>우리 지금 만나</option>
+				<option>같이해요 소모임</option>
 				<option>행사 소식</option>
 				<option>새로 오픈했어요</option>
+				<option>여기 추천!</option>
 			</select>
 			<input id="write-title" type="text" placeholder="제목"/>
 		</div>

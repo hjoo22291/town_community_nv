@@ -16,8 +16,6 @@ public interface BoardService1 { //김종인 작성
 	int getBoardSearchCount(HashMap<String, Object> searchmap);
 	List<BoardDTO> getBoardSearchList(HashMap<String, Object> searchmap);
 	
-	// 회원 동네 아이디 가져오기
-	int getMemberTownId(String member_id);
 	// 회원 동네 아이디에 해당하는 동 이름 가져오기
 	String getMemberDongAddress(int member_town_id);
 	
@@ -44,6 +42,8 @@ public interface BoardService1 { //김종인 작성
 	
 	// 글 작성시 포인트 횟수 제한에 따라 부여하거나 안함
 	boolean addMemberPointOrNot(HashMap<String, Object> pointmap);
+	// 로그인시 
+		public boolean addMemberLoginPointOrNot(HashMap<String, Object> pointmap);
 	
 	// 회원 등급 업 관련 서비스
 	public boolean memberGradeUp(String member_id);

@@ -11,18 +11,18 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class AdminController2 {
 	
-	@RequestMapping("/manager")
-	public ModelAndView manager() {	
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("managerPage");
-		return mv;
-	}
-	
-	@RequestMapping("/manager2")
-	public ModelAndView manager2() {	
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("managerPage2");
-		return mv;
-	}
+//	@RequestMapping("/manager")
+//	public ModelAndView manager() {	
+//		ModelAndView mv = new ModelAndView();
+//		mv.setViewName("managerPage");
+//		return mv;
+//	}
+//	
+//	@RequestMapping("/manager2")
+//	public ModelAndView manager2() {	
+//		ModelAndView mv = new ModelAndView();
+//		mv.setViewName("managerPage");
+//		return mv;
+//	}
 	
 }

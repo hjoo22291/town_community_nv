@@ -12,6 +12,12 @@ a {
 	color: black;
 	text-decoration: none;
 }
+.admin_group {
+	font-size : 21px;
+	border : none;
+	background-color : transparent;	
+	cursor: pointer;
+}
 </style>
 <script>
 $(document).ready(function(){	
@@ -22,7 +28,7 @@ $(document).ready(function(){
 <body>
 	<div id="myPage_menu">
 		<ul class="allMenu">
-	      <li class="outerMenu">관리자 페이지</li>	      
+	      <li class="outerMenu"><a href="/adminManager">관리자 페이지</a></li>	      
 			  <li class="outerMenu">
 				<a href="/noticeBoardList">공지사항</a>
 			  </li>
@@ -30,8 +36,8 @@ $(document).ready(function(){
 			    회원관리
 			    <ul class="innerMenu">
 			      	<li class="innerMenu">
- 			    	  <form id="admin_member" action="" method="post">			    	  	
-			 			<input type="submit" value="회원 조회" id="admin_memberList_btn" class="admin_group">
+ 			    	  <form id="admin_member" action="manager" method="get">			    	  	
+			 			<input type="submit" value="회원 조회" id="manager_btn" class="admin_group">
 					 </form>
 			      </li>
 			    </ul>

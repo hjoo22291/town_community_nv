@@ -11,34 +11,6 @@
 <link rel="stylesheet" href="/css/Mypage.css" />
 <link rel="stylesheet" href="/css/Mypage2.css"> 
 
-<script>
-$(document).ready(function() {
-
-	// page 이동 버튼 클릭시 동작
-	$("#pagination input:button").on("click", function(e) {
-		let url = document.location.href;
-		let pageIndex = url.indexOf("&page=");
-		if (pageIndex > -1) {
-			url = url.substr(0, pageIndex);
-		}
-		let pageval = $(this).val();
-		let page = "$page=1";
-		if (pageval === "◁◁") {
-			page = "&page=1";
-		} else if (pageval === "◁") {
-			page = "&page=${startPageNum - 10}";
-		} else if (pageval === "▷") {	
-			page = "&page=${endPageNum + 1}";
-		} else if (pageval === "▷▷") {
-			page = "&page=${totalPageCnt}";
-		} else if (pageval <= parseInt("${totalPageCnt}") && pageval >= 1) {
-			page = "&page=" + pageval;
-		}
-		window.location.href = url + page;
-	}); //onclick
-}); //ready
-</script>
-
 </head>
 <body>
 <jsp:include page="Header.jsp" />
@@ -82,6 +54,18 @@ $(document).ready(function() {
 					</tr>
 				</thead>
 				<tbody>
+				<c:forEach items="${members}" var="member">
+    <tr>
+        <td>${member.member_id}</td>
+        <td>${member.email}</td>
+        <td>${member.signup_date_str}</td>
+        <td>${member.stopclear_date_str}</td>
+        <td>${member.report_count}</td>
+        <!-- member_id를 데이터 속성으로 추가 -->
+        <td><button class="unban_btn" data-member_id="${member.member_id}">정지해제</button></td>
+        <td><button class="adjust_btn" data-member_id="${member.member_id}">정지일감소</button></td>
+    </tr>
+</c:forEach>
 						<tr>
 							<td></td>
 						</tr>
@@ -128,44 +112,48 @@ function formatDate(isoDateString, includeTime) {
 }
 
 
-$(document).ready(function() {
-    $("#myPage_name").click(function() {
-        loadMembers(1);
-        $("#board_page").show();  
-    });
-});
-$(document).on("click", ".pageNumBtn", function() {
-	var pageNum = $(this).val();
-    if (pageNum === "◁◁") {
-        pageNum = 1;
-    } else if (pageNum === "◁") {
-        pageNum = Math.max(1, currentPage - 1);
-    } else if (pageNum === "▷") {
-        pageNum = currentPage + 1;
-    } else if (pageNum === "▷▷") {
-        pageNum = totalPageCnt; 
-    } 
-    loadMembers(pageNum);
+
+$("#pagination input:button").on("click", function(e) {
+	let url = document.location.href;
+	if (url.indexOf("?") === -1) {
+		url += "?";
+	} else {
+		url += "&";
+	}
+	let pageIndex = url.indexOf("page=");
+	if (pageIndex > -1) {
+		url = url.substr(0, pageIndex);
+	}
+	let pageval = $(this).val();
+	let page = "page=1";
+	if (pageval === "◁◁") {
+		page = "page=1";
+	} else if (pageval === "◁") {
+		page = "page=${startPageNum - 10}";
+	} else if (pageval === "▷") {	
+		page = "page=${endPageNum + 1}";
+	} else if (pageval === "▷▷") {
+		page = "page=${totalPageCnt}";
+	} else if (pageval <= parseInt("${totalPageCnt}") && pageval >= 1) {
+		page = "page=" + pageval;
+	}
+	window.location.href = url + page;
 });
 
 function loadMembers(pageNum) {
 	
 	var rowsPerPage = 20;
-    currentPage = pageNum; //|| currentPage;
+    currentPage = pageNum; 
     $('#board-table tbody').empty();
     $.ajax({
-        url: "/admin/members",
+        url: "/members",
         type: 'POST',
         dataType: 'json',
         data: {
-            'page': currentPage,
-            'size': rowsPerPage
+            
         },
         success: function(response) {
-            // pagination 정보 처리
-            currentPage = response.pagination.currentPage;
-            totalPageCnt = response.pagination.totalPages;
-
+            
             // members 정보 처리
             var members = response.members;
             if (Array.isArray(members)) {
@@ -174,13 +162,12 @@ function loadMembers(pageNum) {
                     row.append($('<td>').text(member.member_id));    // 아이디
                     row.append($('<td>').text(member.email));       // 이메일
 
-                    // 가입일
-                    var signupDate = formatDate(member.signup_date, false);
-                    row.append($('<td>').text(signupDate));
+                    
+                    row.append($('<td>').text(member.signup_date_str));
+                   
 
-                    // 정지일
-                    var stopclearDate = formatDate(member.stopclear_date, true);
-                    row.append($('<td>').text(stopclearDate));
+                    
+                    row.append($('<td>').text(member.stopclear_date_str));
 
                     row.append($('<td>').text(member.report_count));   // 정지횟수
 
@@ -202,9 +189,22 @@ function loadMembers(pageNum) {
         
     });
 }
+
+
+$(document).on('click', '.unban_btn', function() {
+    var memberId = $(this).attr('data-member_id');
+    unbanMember(memberId);
+    
+});
+
+$(document).on('click', '.adjust_btn', function() {
+    var memberId = $(this).attr('data-member_id');
+    adjustBanDate(memberId);
+    
+});
 function unbanMember(memberId) {
     $.ajax({
-        url: "/admin/unban/" + memberId,
+        url: "/unban/" + memberId,
         type: 'POST',
         success: function(response) {
             loadMembers();
@@ -216,7 +216,7 @@ function unbanMember(memberId) {
 }
 function adjustBanDate(memberId) {
     $.ajax({
-        url: "/admin/adjustBanDate/" + memberId,
+        url: "/adjustBanDate/" + memberId,
         type: 'POST',
         success: function(response) {
             loadMembers();
@@ -226,6 +226,7 @@ function adjustBanDate(memberId) {
         }
     });
 }
+
 </script>
 </body>
 </html>

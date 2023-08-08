@@ -11,6 +11,15 @@
 <link rel="stylesheet" href="/css/Mypage.css" />
 <link rel="stylesheet" href="/css/Mypage2.css"> 
 <style>
+.admin_group {
+	font-size : 21px;
+	border : none;
+	background-color : transparent;	
+	cursor: pointer;
+}
+#board-table td{
+	font-size : 15px;
+}
 /* 검색창 */
 #board_search_box {
 	width : 100%;
@@ -71,34 +80,9 @@
 <body>
 <jsp:include page="Header.jsp" />
 <div id="myPage_layout">
-	<div id="myPage_menu">
-		<ul class="allMenu">
-	      <li class="outerMenu">
-	      	관리자 페이지
-	      	<ul class="innerMenu">
-			      <li class="innerMenu"><a href="/noticeBoardList">공지사항</a></li>
-			    </ul>
-      	</li>
-			  <li class="outerMenu">
-			    회원관리
-			    <ul class="innerMenu">
-			      <li class="innerMenu">회원정보</li>
-			    </ul>
-			  </li>
-			  <li class="outerMenu">
-			    신고관리
-			    <ul class="innerMenu">
-			      <li class="innerMenu">신고된 글</li>
-			      <li class="innerMenu">신고된 댓글</li>
-			      <li class="innerMenu">신고된 채팅</li>
-			    </ul>
-			  </li>		    
-
-		</ul>
-	</div>
-	
+	<jsp:include page="adminMenu.jsp" />
 	<div id="myPage_main">
-		<div id="myPage_name">
+		<div id="myPage_name" style="margin-bottom: 0px;">
 			공지사항
 		</div>
 		<div id="top_btnBox">
@@ -159,9 +143,10 @@
 		</div>
 		
 		<!-- 검색창 -->
+		<!-- 
 		<div id="board_search_box">
 			<div id="board_search_inputs">
-			  <select id="selectBox" name="board_search_from">
+			  <select id="selectBox" name="board_search_from" style="width: 100px;">
 					<option value="board_all" selected> 전체 </option>
 					<option value="board_title"> 제목 </option>
 					<option value="board_preview"> 내용 </option>
@@ -171,8 +156,9 @@
 	      </select>
 				<input type=text id="board_searchword" >
 				<input type=button id="board_search_btn" value="검색">
-			</div> 
+			</div>
 		</div>
+		 -->
 		
 	</div>
 </div>

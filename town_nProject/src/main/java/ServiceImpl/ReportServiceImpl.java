@@ -1,6 +1,7 @@
 package ServiceImpl;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,6 +134,10 @@ public class ReportServiceImpl implements ReportService { //안휘주 작성
   	public int updateReportResult(ReportDTO dto) {
   		return dao.updateReportResult(dto);
   	};
-
+  	
+  	//회원 정지
+  	public int updateMemberStopDate(HashMap<String, Object> map) {
+  		return dao.updateMemberStopDate(map);
+  	};
   	
 }//class

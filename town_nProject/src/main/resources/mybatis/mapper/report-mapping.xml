@@ -247,5 +247,11 @@
 </select>
 <!-- ////////////////////////////////////////// 채팅부분 /////////////////////////////////////////////////////////// -->
 
+<!-- 회원 정지 -->
+<update id="updateMemberStopDate" parameterType="hashmap">
+	update member set stopclear_date = DATE_ADD(now(), INTERVAL ${stopDateNum} DAY) where member_id= #{member_id}
+</update>
+
+
 </mapper>
 

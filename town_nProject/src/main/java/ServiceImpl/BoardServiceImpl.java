@@ -207,4 +207,9 @@ public class BoardServiceImpl implements BoardService { //안휘주 작성
   	public String getMemberGrdaeImg(String member_id) {
   		return dao.getMemberGrdaeImg(member_id);
   	};
+  	
+  	//소모임 채팅 생성 여부 확인
+  	public int Check(int board_id) {
+  		return dao.Check(board_id);
+  	};
 }//class

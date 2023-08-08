@@ -50,7 +50,7 @@
 	board_title = #{board_title} and
 	board_contents = #{board_contents} and
 	writer = #{writer}
-	order by writing_time
+	order by writing_time desc
 </select>
 
 <!-- 관리자가 공지사항 올릴시 notice_board 테이블에 공지 올릴 동네 아이디들 저장-->

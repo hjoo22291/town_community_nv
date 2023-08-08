@@ -20,8 +20,6 @@ public interface BoardDAO1 { //김종인 작성
 	int getBoardSearchCount(HashMap<String, Object> searchmap);
 	List<BoardDTO> getBoardSearchList(HashMap<String, Object> searchmap);
 	
-	// 회원 동네 아이디 가져오기
-	int getMemberTownId(String member_id);
 	// 회원 동네 아이디에 해당하는 동 이름 가져오기
 	String getMemberDongAddress(int member_town_id);
 	// 동네 이름 모두 가져오기(동네 아이디 오름차순으로)

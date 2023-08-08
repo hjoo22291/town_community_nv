@@ -112,7 +112,8 @@ select * from board where printout is true and town_id=#{town_id} and ((board_na
 		good_cnt,
 		hate_cnt,
 		view_cnt,
-		sum
+		sum,
+		writing_time
 	)
 	values 
 	(
@@ -134,7 +135,8 @@ select * from board where printout is true and town_id=#{town_id} and ((board_na
 		#{good_cnt}, 
 		#{hate_cnt}, 
 		#{view_cnt},
-		#{sum}
+		#{sum},
+		#{writing_time}
 	)
 </insert>
 <select id="photoExhibitionCheck" parameterType="String" resultType="int">

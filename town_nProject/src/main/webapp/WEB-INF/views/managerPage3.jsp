@@ -56,47 +56,11 @@ $(document).ready(function() {
 	
 	<div id="myPage_main">
 		<div id="myPage_name">
-			회원정보
+			관리자 페이지입니다.
 		</div>
-				<div id="board_page">
-			<table id="board-table">
-				<thead>
-					<tr>
-						<th style="width: 7%;">아이디</th>
-						<th style="width: 13%;">이메일</th>
-						<th style="width: 35%;">주소</th>
-						<th style="width: 13%;">정지일</th>
-					</tr>
-				</thead>
-				<tbody>
-						<tr>
-							<td></td>
-						</tr>
-				</tbody>
-			</table>
+		<div id="board_page">
+			원하는 메뉴를 선택해주세요.
 		</div>
-		
-		<div id="board_pagingNum">
-			<div id="pagination">
-				<c:if test="${prev}">
-					<input type="button" class="pageNumBtn" value="◁◁">
-					<input type="button" class="pageNumBtn" value="◁">
-				</c:if>
-				
-				<c:forEach begin="${startPageNum}" end="${endPageNum}" var="i">
-					<c:if test="${selectedPageNum != i}">
-						<input type="button" class="pageNumBtn" value="${i}" style="font-weight: 300; color: #555">
-					</c:if>
-					<c:if test="${selectedPageNum == i}">
-						<input type="button" class="pageNumBtn" value="${i}" style="font-weight: 900">
-					</c:if>
-				</c:forEach>
-				<c:if test="${next}">
-					<input type="button" class="pageNumBtn" value="▷">
-					<input type="button" class="pageNumBtn" value="▷▷">
-				</c:if>
-			</div>
-		</div>	
 	</div>
 </div>
 </body>

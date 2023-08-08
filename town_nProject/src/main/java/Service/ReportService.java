@@ -1,5 +1,6 @@
 package Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import Dto.CommentDTO;
@@ -33,4 +34,7 @@ public interface ReportService { //안휘주 작성
   	//채팅 신고내용 조회 -----------------------------------------------------------------------
   	public PagingResponse<ReportDTO> reportedChatList(SearchDTO dto);
   	public PagingResponse<ReportDTO> reportedGChatList(SearchDTO dto);
+  	
+  	//회원 정지
+  	public int updateMemberStopDate(HashMap<String, Object> map);
 }

@@ -1,5 +1,6 @@
 package Dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -43,5 +44,6 @@ public interface ReportDAO { //안휘주 작성
   	public int reportedGChatCnt(SearchDTO dto);
   	public List<ReportDTO> reportedGChatList(SearchDTO dto);
   	
-  	
+  	//회원 정지
+  	public int updateMemberStopDate(HashMap<String, Object> map);
 }

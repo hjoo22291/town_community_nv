@@ -61,7 +61,7 @@
         SELECT COUNT(*) FROM member;  
     </select>
 
-    <select id="getAllMembersWithPagination" resultType="Dto.MemberDTO">
+    <select id="getAllMembersWithPagination" parameterType="hashmap" resultType="Dto.MemberDTO">
         SELECT * FROM member
         ORDER BY ${orderCol} ASC
         LIMIT #{limitIndex}, #{limitCount};

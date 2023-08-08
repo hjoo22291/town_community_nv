@@ -1,7 +1,6 @@
 package Controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,10 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import Dto.BoardDTO;
 import Dto.MemberDTO;
+import Service.BoardService1;
 import Service.SignService;
 import ServiceImpl.hashService;
-import ch.qos.logback.core.model.Model;
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -34,6 +34,10 @@ public class SignController {
 	@Autowired
 	@Qualifier("SignService")
 	SignService Ss;
+	
+	@Autowired
+	@Qualifier("boardServiceImpl1")
+	BoardService1 service;
 	
 	@Autowired
 	private hashService hashService;
@@ -77,7 +81,7 @@ public class SignController {
 		int compare = date.compareTo(today); 
 		if(my_info != null) {
 			if(compare>0) {
-				session.setAttribute("date", stopdate);
+				session.setAttribute("msg", "회원님은 "+stopdate+" 까지 정지된 회원입니다");
 				session.setAttribute("url", "/");
 				return "redirect:/alert";
 			}
@@ -87,6 +91,19 @@ public class SignController {
 					session.setAttribute("town_id", my_info.getTown_id());
 					session.setAttribute("member_role", my_info.getMember_role());
 					return "redirect:/admin";
+				}
+				
+				HashMap<String, Object> pointmap = new HashMap<>(); // 포인트 부여 sql에 사용할 파라미터
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String formatDate = sdf.format(today); 
+				pointmap.put("member_id", my_info.getMember_id());
+				pointmap.put("point_method", "로그인");
+				pointmap.put("point_time", formatDate);
+				pointmap.put("point_get", 3);
+				boolean pointResult = service.addMemberLoginPointOrNot(pointmap); // 포인트를 부여했는지 안 했는지
+				boolean gradeUpResult = false; // 회원이 등급 업 했는지 안 했는지
+				if (pointResult) { // 포인트가 부여 됐을 때
+					gradeUpResult = service.memberGradeUp(my_info.getMember_id());
 				}
 				map = new HashMap<>();
 				session.setAttribute("member_id",my_info.getMember_id());
@@ -100,7 +117,9 @@ public class SignController {
 				return "redirect:/main" ;
 			}
 	}
-		return "redirect:/Signin";
+		session.setAttribute("msg", "아이디 또는 비밀번호를 확인해주세요.");
+		session.setAttribute("url", "/");
+		return "redirect:/alert";
 
 	}
 	//회원가입
@@ -379,24 +398,30 @@ public class SignController {
 	@ResponseBody  
 	//회원가입시 이메일 인증번호 발송
 	public String SendMail(String email) {
-		
-		
 		Random random=new Random(); 
-		String key="";  
-
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo(email); 
+		String key=""; 
 		for(int i =0; i<3;i++) {
 			int index=random.nextInt(25)+65; 
 			key+=(char)index;
 		}
 		int numIndex=random.nextInt(99999)+10000; 
 		key+=numIndex;
-		message.setSubject("인증번호 입력을 위한 메일 전송");
-		message.setText("인증 번호 : "+key);
-		message.setFrom("kakaoclone@naver.com");
-		javaMailSender.send(message);
 		
+		MimeMessage message = javaMailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message, "utf-8");
+		String mail = "kakaoclone@naver.com";
+		try {
+			helper.setFrom(mail);
+			helper.setTo(email);
+			
+			helper.setSubject("인증번호 입력을 위한 메일 전송");
+			helper.setText("[동네일보] 인증번호["+key+"]를 입력해 주세요." ,true);
+			javaMailSender.send(message);
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
         return key;
 	}
@@ -406,18 +431,18 @@ public class SignController {
 	//비밀번호 찾기시 이메일로 임시 비밀번호 전송
 	public String FindSendMail(String email) {
 		Random random=new Random(); 
-		String key="";  
+		String key="!@";  
 
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(email); 
-		for(int i =0; i<3;i++) {
+		for(int i =0; i<4;i++) {
 			int index=random.nextInt(25)+65; 
 			key+=(char)index;
 		}
 		int numIndex=random.nextInt(99999)+10000; 
 		key+=numIndex;
 		message.setSubject("임시비밀번호을 위한 메일 전송");
-		message.setText("임시비밀번호 : "+key);
+		message.setText("[동네일보] : "+key);
 		message.setFrom("kakaoclone@naver.com");
 		javaMailSender.send(message);
 		

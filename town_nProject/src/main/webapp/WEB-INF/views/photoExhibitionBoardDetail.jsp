@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>동네일보 게시판</title>
 <script src="/js/jquery-3.6.4.min.js"></script>
 <link rel="stylesheet" href="/css/BoardCommon.css" />
 <link rel="stylesheet" href="/css/BoardDetail.css" />

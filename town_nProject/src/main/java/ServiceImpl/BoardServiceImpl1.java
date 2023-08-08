@@ -34,11 +34,6 @@ public class BoardServiceImpl1 implements BoardService1 { //김종인 작성
 	public int insertNoticeBoard(HashMap<String, Object> noticemap) {
 		return dao.insertNoticeBoard(noticemap);
 	}
-	
-	@Override
-	public int getMemberTownId(String member_id) {
-		return dao.getMemberTownId(member_id);
-	}
 
 	@Override
 	public int getTotalArticleCount(HashMap<String, Object> map) {
@@ -132,6 +127,16 @@ public class BoardServiceImpl1 implements BoardService1 { //김종인 작성
 	public boolean addMemberPointOrNot(HashMap<String, Object> pointmap) {
 		int writeBoardCnt = dao.getWriteBoardCnt(pointmap);
 		if (writeBoardCnt < 10) {
+			dao.insertWriteBoardPoint(pointmap);
+			dao.updateMemberPoint(pointmap);
+			return true;
+		} 
+		return false;
+	}
+	@Override
+	public boolean addMemberLoginPointOrNot(HashMap<String, Object> pointmap) {
+		int writeBoardCnt = dao.getWriteBoardCnt(pointmap);
+		if (writeBoardCnt < 1) {
 			dao.insertWriteBoardPoint(pointmap);
 			dao.updateMemberPoint(pointmap);
 			return true;

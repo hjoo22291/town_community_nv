@@ -70,4 +70,7 @@ public interface BoardService { //안휘주 작성
   	//멤버 등급 이미지 가져오기
   	public String getMemberGrdaeImg(String member_id);
   	
+  	//소모임 채팅 생성 여부 확인
+  	public int Check(int board_id);
+  	
 }

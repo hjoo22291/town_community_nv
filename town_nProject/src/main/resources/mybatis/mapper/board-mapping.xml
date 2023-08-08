@@ -255,5 +255,10 @@
 	where member_id = #{member_id}
 </select>
 
+<!-- 소모임 채팅 생성 여부 확인 -->
+<select id="Check" parameterType="int" resultType="int">
+select count(board_id) from gchat_room where board_id = #{board_id}
+</select>
+
 </mapper>
 
