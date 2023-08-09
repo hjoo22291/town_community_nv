@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import Dto.BoardDTO;
 import Dto.MemberDTO;
+import Service.BoardService;
 import Service.BoardService1;
 import Service.SignService;
 import ServiceImpl.hashService;
@@ -38,6 +39,10 @@ public class SignController {
 	@Autowired
 	@Qualifier("boardServiceImpl1")
 	BoardService1 service;
+	
+	@Autowired
+	@Qualifier("boardServiceImpl")
+	BoardService service2;
 	
 	@Autowired
 	private hashService hashService;
@@ -90,7 +95,7 @@ public class SignController {
 					session.setAttribute("member_id",my_info.getMember_id());
 					session.setAttribute("town_id", my_info.getTown_id());
 					session.setAttribute("member_role", my_info.getMember_role());
-					return "redirect:/admin";
+					return "redirect:/adminManager";
 				}
 				
 				HashMap<String, Object> pointmap = new HashMap<>(); // 포인트 부여 sql에 사용할 파라미터
@@ -117,6 +122,7 @@ public class SignController {
 				return "redirect:/main" ;
 			}
 	}
+		
 		session.setAttribute("msg", "아이디 또는 비밀번호를 확인해주세요.");
 		session.setAttribute("url", "/");
 		return "redirect:/alert";
@@ -247,6 +253,8 @@ public class SignController {
 		map.put("signup_date", my_info.getSignup_date());
 		Ss.deletememberinsert(map);
 		Ss.deletemember(member_id);
+		service2.deleteAllBoard(member_id);
+		service2.deleteAllComment(member_id);
 		session.invalidate();
 		return "redirect:/Signin";
 	}
@@ -277,6 +285,7 @@ public class SignController {
 	int MyTotalArticleCount = Ss.getMyTotalArticleCount(map); //내가 쓴 글 갯수
 	int MycommentTotalArticleCount = Ss.getMycommentTotalArticleCount(map);//내가 쓴 댓글 갯수
 	int getMygoodTotalArticleCount = Ss.getMygoodTotalArticleCount(map);//내가 좋아요 한 글 갯수
+	int getmyphotocnt=Ss.getmyphotocnt(map);
 	
 	// 마이페이지 경험치 바 구현
 	HashMap<String, Object> memberGradeInfo = Ss.getMemberGradeInfo(my_id);
@@ -293,6 +302,7 @@ public class SignController {
 	mv.addObject("gradeImage", gradeImage);
 	// 마이페이지 경험치 바 구현 끝
 	
+	mv.addObject("getmyphotocnt",getmyphotocnt);
 	mv.addObject("MyTotalArticleCount",MyTotalArticleCount);
 	mv.addObject("MycommentTotalArticleCount",MycommentTotalArticleCount);
 	mv.addObject("getMygoodTotalArticleCount",getMygoodTotalArticleCount);
@@ -442,7 +452,7 @@ public class SignController {
 		int numIndex=random.nextInt(99999)+10000; 
 		key+=numIndex;
 		message.setSubject("임시비밀번호을 위한 메일 전송");
-		message.setText("[동네일보] : "+key);
+		message.setText("[동네일보] 임시비밀번호는: "+key+"입니다.");
 		message.setFrom("kakaoclone@naver.com");
 		javaMailSender.send(message);
 		

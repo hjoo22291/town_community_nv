@@ -140,6 +140,41 @@ $(document).ready(function() {
 		}
 	});
 	
+	$(".adminDeleteBoard").on('click', function(){
+		let messageId = $(this).attr('id');
+		let thisReportId = $(this).prevAll(".reportId").val();
+		
+		if(confirm("해당 채팅을 삭제하시겠습니까?") == true) {
+			$.ajax({
+				url : 'deletechatmessage',
+				type : 'post',
+				data : {
+					message_id : messageId
+				},
+				success: function(response){
+					$.ajax({
+						url : 'updateReportResult',
+						type : 'post',
+						data : {'report_id': thisReportId, 'report_result' : '메시지 삭제 처리'},
+						success : function(response) {
+							alert("해당 채팅을 삭제하였습니다.");
+							location.reload();
+						},
+						error : function(request, status, e){
+							alert("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
+						}
+					});
+				},
+				error : function(request, status, e){
+					alert("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
+				}
+			});
+		}
+		else {
+			return;
+		}
+	});
+	
 	//회원 탈퇴시키기
 	$(".adminDeleteMember").on('click', function(){
 		let memberId = $(this).prevAll(".reportedMemId").val();
@@ -186,7 +221,7 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<jsp:include page="Header.jsp" />
+<jsp:include page="AdminHeader.jsp" />
 <div id="myPage_layout">
 <jsp:include page="adminMenu.jsp" />
 	
@@ -269,10 +304,10 @@ $(document).ready(function() {
 							<div class="eight">
 								${dto.boarddto.board_contents}
 							</div> --%>
-							<div class="nine">
+<%-- 							<div class="nine">
 							 	<input type="hidden" id="boardId" value="${dto.message_id}" />
 								<button class="moreDetailBtn" >상세 대화내역 확인</button>
-							</div>
+							</div> --%>
 						</div>	
 					</div>
 					</td></tr>
@@ -305,10 +340,10 @@ $(document).ready(function() {
 							<div class="eight">
 								${dto.boarddto.board_contents}
 							</div> --%>
-							<div class="nine">
-							 	<input type="hidden" id="boardId" value="${dto.board_id}" />
+<%-- 							<div class="nine">
+							 	<input type="hidden" id="boardId" value="${dto.message_id}" />
 								<button class="moreDetailBtn" >상세 대화내역 확인</button>
-							</div>
+							</div> --%>
 						</div>	
 					</div>
 					</td></tr>

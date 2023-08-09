@@ -8,7 +8,21 @@ public class GChatlistDTO {
 	String member_id;
 	int board_id;
 	String chatroom_name;
+	String latest_gcontent;
+	int gchat_list_uuid;
 	
+	public int getGchat_list_uuid() {
+		return gchat_list_uuid;
+	}
+	public void setGchat_list_uuid(int gchat_list_uuid) {
+		this.gchat_list_uuid = gchat_list_uuid;
+	}
+	public String getLatest_gcontent() {
+		return latest_gcontent;
+	}
+	public void setLatest_gcontent(String latest_gcontent) {
+		this.latest_gcontent = latest_gcontent;
+	}
 	public String getChatroom_name() {
 		return chatroom_name;
 	}

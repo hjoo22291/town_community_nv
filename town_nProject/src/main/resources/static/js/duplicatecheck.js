@@ -1,7 +1,7 @@
  function checkeID(){
 	 
         var member_id = $('#id').val(); 
-        var getID = RegExp(/^[a-zA-Z0-9]{4,12}$/);
+        var getID = RegExp(/^[a-zA-Z0-9]+[a-zA-Z0-9]{4,12}$/);
         if(!getID.test($("#id").val())){
         $(".duID").text("영문,숫자 포함 4~12자 입력해주세요.");
         $('.duID').css("color","red"); 

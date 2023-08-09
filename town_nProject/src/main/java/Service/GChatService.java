@@ -21,4 +21,10 @@ public interface GChatService {
 	public ArrayList<GChatlistDTO> selectGchatlist (GChatlistDTO dto);
 	public int selectGmessageid(GMessageDTO dto);
 	public GMessageDTO selectGmessagebyid(int gmessage_id);
+	public String selectchatroomname(GChatlistDTO dto);
+	public int updatelatestgcontent(GChatroomDTO dto);
+	public String selectlatestgcontent(GChatroomDTO dto);
+	public int leavegchatroom(GChatlistDTO dto);
+	public int changegchatroomname(GChatlistDTO dto);
+	public int deletegchatmessage(GMessageDTO dto);
 }

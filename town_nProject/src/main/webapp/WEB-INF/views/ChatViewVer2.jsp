@@ -11,7 +11,7 @@
 $(document).ready(function() {
     
 	var websocket;
-    websocket = new WebSocket("ws://localhost:8091/chatws");
+    websocket = new WebSocket("ws://http://118.67.128.212:8080/chatws");
     websocket.onopen = function() {
         console.log("웹소캣 연결 성공");
         var chatArea = $("#chatArea");
@@ -302,6 +302,7 @@ body {
 		<div class="chat-header">
 	    	<span id="exitButton" style="margin-right: auto; padding: 0px 10px; cursor: pointer;">
         		<img style="height: 15px;" src="img/뒤로가기버튼.png">
+        		&nbsp&nbsp1:1채팅
     		</span>
     		
     		

@@ -153,13 +153,90 @@
 		width: 25px;
 		height: 25px;
 		border-radius: 50%;
-		background-color : red;
 		color : white;
 		justify-content : center;
   		align-items : center;
 		margin-right : 10px;
+		position : relative;
     }
-  </style>
+    
+    .combobox {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    list-style: none;
+    margin: 0;
+    padding : 0;
+}
+
+.combobox ul {
+    cursor: pointer;
+    color: #333;
+    list-style-type: none;
+    padding : 5px;
+    margin : 0;
+}
+
+.combobox li:hover {
+    background-color: #eaeaea;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* 팝업 내용 스타일 */
+h2 {
+    margin-bottom: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+    
+</style>
 <script>
   $(document).ready(function() {
     var chatList = $('.chat-list');
@@ -184,10 +261,67 @@
     	}
     });
     
-    $(".chat-item2").on("click", function() {
+    $(".chat-item2 .title").on("click", function() {
     	var boardId = $(this).data("board-id");
 		window.location.href = '/entergchat?board_id=' + encodeURIComponent(boardId);		    	
     });
+    
+    $('.chat-item2 .totalisread').click(function() {
+    	var clickedComboBox = $(this).next('.combobox');
+        clickedComboBox.toggle();
+        
+        $('.combobox').not(clickedComboBox).hide();
+      });
+    
+    $("#openPopup").click(function() {
+        $("#popup").show();
+    });
+
+    $("#closePopup").click(function() {
+        $("#popup").hide();
+    });
+
+    $("#saveRoomNameBtn").click(function() {
+    	var board_id = $(this).data("board-id");
+    	var gchat_id = $(this).data("gchat-id");
+        var new_title = $("#newRoomNameInput").val();
+
+        $.ajax ({
+        	type: "POST",
+        	url: "/changeGChatroomname",
+        	data: { board_id : board_id,
+        			gchat_id : gchat_id,
+        			new_title : new_title
+        	},
+        	success: function(response) {
+        		$("#popup").hide();
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error("Error sending message:", error);
+            }
+        })
+    });
+    
+    $('.leavechatroom').click(function() {
+    	var board_id = $(this).data("board-id");
+    	var gchat_id = $(this).data("gchat-id");
+    	
+    	$.ajax({
+            type: "POST",
+            url: "/leaveGChat",
+            data: { board_id: board_id,
+            		gchat_id: gchat_id
+            	},
+            dataType: "text",
+            success: function(response) {
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error("Error sending message:", error);
+            }            
+        });	
+    })
   });
 </script>
 </head>
@@ -214,13 +348,30 @@
     <div class="header">그룹 채팅</div>
     <div class="chat-list">
  	  <c:forEach items="${list2}" var="list2">
-	  	<div class="chat-item2" data-board-id="${list2.board_id}">
+	  	<div class="chat-item2">
 	  		<img class="thumbnail" src="img/기본프로필사진.png">
 	  		<div class="info">
-	  			<div class="title">${list2.chatroom_name}</div>
-	  			<div class="message">${list2.board_id}</div>
+	  			<div class="title"  data-board-id="${list2.board_id}">${list2.chatroom_name}</div>
+	  			<div class="message">${list2.latest_gcontent}</div>
+	  		</div>
+	  		<div>
+	  			<img class="totalisread" src="img/etc-icon.png">
+	  			<div class="combobox">
+					<ul>
+						<li id="openPopup" class="changeroomname" data-board-id="${list2.board_id}" data-gchat-id="${list2.gchat_id }">방이름 바꾸기</li>
+						<li class="leavechatroom" data-board-id="${list2.board_id}" data-gchat-id="${list2.gchat_id }">채팅방 나가기</li>
+					</ul>
+				</div>
 	  		</div>
 	  	</div>
+		<div id="popup" class="popup">
+		    <div class="popup-content">
+		        <span class="popup-close" id="closePopup">&times;</span>
+		        <h2>채팅방 이름 변경</h2>
+		        <input type="text" id="newRoomNameInput" placeholder="새로운 채팅방 이름 입력">
+		        <button id="saveRoomNameBtn" data-board-id="${list2.board_id}" data-gchat-id="${list2.gchat_id }">저장</button>
+		    </div>
+		</div>
 	  </c:forEach>   
     </div>
   </div>

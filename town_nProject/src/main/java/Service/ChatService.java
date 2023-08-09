@@ -19,4 +19,6 @@ public interface ChatService {
 	public List<Integer> selectChatid(MessageDTO dto);
 	public int selectMessageid(MessageDTO dto);
 	public MessageDTO selectMessagebyid(int message_id);
+	public int deletechatmessage(MessageDTO dto);
+	public String doestouseridexist(String touser_id);
 }

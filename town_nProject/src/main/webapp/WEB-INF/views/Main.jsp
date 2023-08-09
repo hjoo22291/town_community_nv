@@ -265,13 +265,13 @@
 					<button type="submit" class="button class one_board" id="${youKnow.board_id}" style="">게시물 전체보기</button>
 				</c:if>
 				<c:if test="${youKnow.board_imgurl != null}">
-					<p class="subtitle">카페 전경</p>
+					<p class="subtitle">전경</p>
 					<div style="position: relative; width:274px; height:274px; overflow: hidden; background: white">
 						<img style="position: absolute; top:50%; left:50%; transform:translate(-50%,-50%); background: white;" src="${youKnow.board_imgurl }" width=274 />
 					</div>
 				</c:if>
 				<c:if test="${youKnow.place_lat != null && youKnow.place_long != null}">
-					<p class="subtitle">카페 위치</p>
+					<p class="subtitle">위치</p>
 					<div id="mapInfoBox">
 					<div id="staticMap"></div>
 					<div id="placeName">${youKnow.place_name}</div>

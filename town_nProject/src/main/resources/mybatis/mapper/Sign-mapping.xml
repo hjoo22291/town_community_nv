@@ -69,6 +69,11 @@
 		on b.board_id = gh.board_id
 		where gh.good = true and gh.member_id = #{member_id};
 	</select>
+	
+	<select id="getmyphotocnt" parameterType="hashmap" resultType="int">
+		select count(board_name_inner="역대 당선작") from board where writer = #{member_id}
+	</select>
+	
 	<select id="admincnt" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM member where member_role=1;
 	</select>
@@ -80,4 +85,5 @@
 		on g.grade_name = m.grade_name
 		where member_id = #{member_id}
 	</select>
+	
   </mapper>

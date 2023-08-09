@@ -33,4 +33,5 @@ public interface SignDAO {
 	public int admincnt();
 	// 회원 등급 정보(경험치바 구현)
 	HashMap<String, Object> getMemberGradeInfo(String member_id);
+	int getmyphotocnt(HashMap<String, ?> map);
 }

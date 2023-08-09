@@ -91,5 +91,8 @@ public class SignServiceimple implements SignService{
 	public HashMap<String, Object> getMemberGradeInfo(String member_id) {
 		return dao.getMemberGradeInfo(member_id);
 	}
+	public int getmyphotocnt(HashMap<String, ?> map) {
+		return dao.getmyphotocnt(map);
+	}
 
 }

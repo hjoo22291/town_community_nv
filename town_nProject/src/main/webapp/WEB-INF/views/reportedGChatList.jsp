@@ -115,19 +115,113 @@ $(document).ready(function() {
 		}		
 	});
 	
-	//해당 글 보러가기
-	$(".moreDetailBtn").on('click', function(){
-		let bi = $(this).prev("#boardId").val();
-		open("/boarddetail?bi="+bi , "해당글상세조회", "width=900px, height=800px, top=200px, left=800px");
+	//처벌 없음
+	$(".adminNoPenalty").on('click', function(){
+		let thisReportId = $(this).attr('id');
+		
+		if(confirm("해당 채팅을 처벌 없음으로 처리하시겠습니까?") == true){
+			$.ajax({
+				url : 'updateReportResult',
+				type : 'post',
+				data : {'report_id': thisReportId, 'report_result' : '처벌 없음'},
+				success : function(response){
+					if(response > 0) {
+						alert("처벌 없음으로 처리 하였습니다.");	
+						location.reload(); //현재 페이지 새로고침
+					}
+				},
+				error : function(request, status, e){
+					alert("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
+				}
+			});//ajax 	
+		}
+		else {
+			return ;
+		}
 	});
 	
+	$(".adminDeleteBoard").on('click', function(){
+		let gmessageId = $(this).attr('id');
+		let thisReportId = $(this).prevAll(".reportId").val();
+		
+		if(confirm("해당 채팅을 삭제하시겠습니까?") == true) {
+			$.ajax({
+				url : 'deletegchatmessage',
+				type : 'post',
+				data : {
+					gmessage_id : gmessageId
+				},
+				success: function(response){
+					$.ajax({
+						url : 'updateReportResult',
+						type : 'post',
+						data : {'report_id': thisReportId, 'report_result' : '메시지 삭제 처리'},
+						success : function(response) {
+							alert("해당 채팅을 삭제하였습니다.");
+							location.reload();
+						},
+						error : function(request, status, e){
+							alert("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
+						}
+					});
+				},
+				error : function(request, status, e){
+					alert("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
+				}
+			});
+		}
+		else {
+			return;
+		}
+	});
 	
-	
+	//회원 탈퇴시키기
+	$(".adminDeleteMember").on('click', function(){
+		let memberId = $(this).prevAll(".reportedMemId").val();
+		let thisReportId = $(this).prevAll(".reportId").val();
+		
+		if(confirm("해당 회원을 강제 탈퇴처리하시겠습니까?") == true){
+			$.ajax({
+				url : 'admindeletemember',
+				type : 'post',
+				data : {'member_id': memberId},
+				success : function(response){
+					if(response == 2) {
+						$.ajax({
+							url : 'updateReportResult',
+							type : 'post',
+							data : {'report_id': thisReportId, 'report_result' : '회원 탈퇴 처리'},
+							success : function(response){
+								if(response > 0) {
+									alert("해당 회원을 탈퇴 처리 하였습니다.");	
+									location.reload(); //현재 페이지 새로고침
+								}
+							},
+							error : function(request, status, e){
+								alert("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
+							}
+						});//ajax 	
+					}
+					else {
+						alert("문제가 발생하였습니다. 데이터베이스를 확인하세요.");
+					}
+				},
+				error : function(request, status, e){
+					alert("코드=" + request.status + "\n" + "메시지=" + request.responseText + "\n" + "error=" + e);
+				}
+			});//ajax
+		}
+		else {
+			return ;
+		}
+	});	
+		
+
 }); //ready
 </script>
 </head>
 <body>
-<jsp:include page="Header.jsp" />
+<jsp:include page="AdminHeader.jsp" />
 <div id="myPage_layout">
 <jsp:include page="adminMenu.jsp" />
 	
@@ -160,14 +254,14 @@ $(document).ready(function() {
 					<th style="width: 10%;">작성자</th>
 					<th style="width: 20%;">채팅내용</th>
 					<th style="width: 10%;">신고자</th>
-					<th style="width: 14%;">신고 사유</th>
+					<th style="width: 10%;">신고 사유</th>
 					<th style="width: 9%;">신고 날짜</th>
 					<c:choose>
 						<c:when test="${searchdto.searchType1 == 'notYet'}">
-							<th style="width: 17%;">신고 처리</th>
+							<th style="width: 23%;">신고 처리</th>
 					 	</c:when>
 						<c:otherwise>
-							<th style="width: 17%;">신고 처리 결과</th>						
+							<th style="width: 15%;">신고 처리 결과</th>						
 						</c:otherwise>					
 					</c:choose>
 				</tr>
@@ -188,10 +282,12 @@ $(document).ready(function() {
 							${regDate}
 						</td>
 						 <td>
-						 	<input type="hidden" class="reportedMemId" value="${dto.reported_member_id}" />
+							 <input type="hidden" class="reportId" value="${dto.report_id}" />
+						 	 <input type="hidden" class="reportedMemId" value="${dto.reported_member_id}" />
 							 <button class="adminDeleteBoard" id="${dto.gmessage_id}">채팅삭제</button>	
 							 <button class="adminDeleteMember" id="${dto.reported_member_id}_delete">회원삭제</button>
 							 <button class="adminStopMember" id="${dto.reported_member_id}_stop">회원정지</button>
+							 <button class="adminNoPenalty" id="${dto.report_id}">처벌없음</button>
 						 </td>
 					</tr>
 					<tr class="report_detail_view"><td colspan="7" style="text-align : left; margin-left : 10px;">
@@ -208,10 +304,10 @@ $(document).ready(function() {
 							<div class="eight">
 								${dto.boarddto.board_contents}
 							</div> --%>
-							<div class="nine">
+<%-- 							<div class="nine">
 							 	<input type="hidden" id="boardId" value="${dto.gmessage_id}" />
-								<button class="moreDetailBtn" >상세페이지로 이동</button>
-							</div>
+								<button class="moreDetailBtn" >상세 대화내역 확인</button>
+							</div> --%>
 						</div>	
 					</div>
 					</td></tr>
@@ -236,18 +332,18 @@ $(document).ready(function() {
 						<div class="grid_container">
 							<div class="one">신고 상세 사유</div>
 							<div class="two">${dto.report_detail}</div>
-							<div class="three">글 작성자</div>
+							<div class="three">채팅 작성자</div>
 							<div class="four">${dto.reported_member_id}</div>
-							<div class="five">글 제목</div>
-							<div class="six"> ${dto.boarddto.board_title}</div>
-							<div class="seven">글 내용</div>
+							<div class="five">채팅 내용</div>
+							<div class="six"> ${dto.reported_contents}</div>
+<%-- 							<div class="seven">글 내용</div>
 							<div class="eight">
 								${dto.boarddto.board_contents}
-							</div>
-							<div class="nine">
-							 	<input type="hidden" id="boardId" value="${dto.board_id}" />
-								<button class="moreDetailBtn" >상세페이지로 이동</button>
-							</div>
+							</div> --%>
+<%-- 							<div class="nine">
+							 	<input type="hidden" id="boardId" value="${dto.gmessage_id}" />
+								<button class="moreDetailBtn" >상세 대화내역 확인</button>
+							</div> --%>
 						</div>	
 					</div>
 					</td></tr>
@@ -260,7 +356,7 @@ $(document).ready(function() {
 	</div>
 		
 <!-- pagination -->
-	<form action="reportedCommentList" id="adminFormPage" method="post">
+	<form action="reportedGChatList" id="adminFormPage" method="post">
 		<c:choose>
 			<c:when test="${searchdto.searchType1 == 'notYet'}">
 				<input type="hidden" name="search" value="notYet" />

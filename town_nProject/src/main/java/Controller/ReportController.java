@@ -249,6 +249,18 @@ public class ReportController { //안휘주 작성
 		return a+b;
 	}
 	
+
+	@RequestMapping("/deletechatmessage")
+	@ResponseBody
+	public int deletechatmessage(int message_id) {
+		MessageDTO dto = new MessageDTO();
+		dto.setMessage_id(message_id);
+		dto.setMessage_content("채팅이 관리자에 의해 삭제되었습니다.");
+		
+		service3.deletechatmessage(dto);
+		return 0;
+	}
+
 	//회원 정지(글)
 	@PostMapping(value="/adminBoardStopMember", produces = {"application/json;charset=utf-8"})
 	public @ResponseBody int adminBoardStopMember(String member_id, int stopDateNum, int board_id) {
@@ -270,7 +282,16 @@ public class ReportController { //안휘주 작성
 		int b = service2.deleteComment(comment_id);
 		return a+b;
 	}
-	
-	
+
+	@RequestMapping("/deletegchatmessage")
+	@ResponseBody
+	public int deletegchatmessage(int gmessage_id) {
+		GMessageDTO dto = new GMessageDTO();
+		dto.setGmessage_id(gmessage_id);
+		dto.setGmessage_content("채팅이 관리자에 의해 삭제되었습니다.");
+		
+		service4.deletegchatmessage(dto);
+		return 0;
+	}
 	
 }//class

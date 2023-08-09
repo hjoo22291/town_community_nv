@@ -7,7 +7,14 @@ public class GChatroomDTO {
 	int gchat_id;
 	String gchatroom_createdAt;
 	int board_id;
+	String latest_gcontent;
 	
+	public String getLatest_gcontent() {
+		return latest_gcontent;
+	}
+	public void setLatest_gcontent(String latest_gcontent) {
+		this.latest_gcontent = latest_gcontent;
+	}
 	public int getBoard_id() {
 		return board_id;
 	}

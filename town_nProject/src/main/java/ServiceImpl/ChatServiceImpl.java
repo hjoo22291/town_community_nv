@@ -27,6 +27,18 @@ public class ChatServiceImpl implements ChatService {
 
 
 	@Override
+	public int deletechatmessage(MessageDTO dto) {
+		return dao.deletechatmessage(dto);
+	}
+
+
+	@Override
+	public String doestouseridexist(String touser_id) {
+		return dao.doestouseridexist(touser_id);
+	}
+
+
+	@Override
 	public MessageDTO selectMessagebyid(int message_id) {
 		return dao.selectMessagebyid(message_id);
 	}

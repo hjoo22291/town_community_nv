@@ -62,6 +62,10 @@ public class GChatController {
 		int result3 = service.insertGmessage(dto3);
 		System.out.println(result3);
 		
+		List<GMessageDTO> list = service.summonMessage(dto3);
+		
+		mv.addObject("list", list);
+		mv.addObject("chatroom_name",chatroom_name);
 		mv.setViewName("/GChatView");
 		return mv;
 	}
@@ -78,19 +82,29 @@ public class GChatController {
 		dto1.setMember_id(member_id);
 		List<Integer> gchat_id = service.selectGchat(dto1);
 		System.out.println(gchat_id);
+		dto1.setGchat_id(gchat_id.get(0));
+
 		
 		List<GChatlistDTO> list2 = service.checkGchat(dto1);
 		
 		if (list2.size() == 0) {
-			dto1.setGchat_id(gchat_id.get(0));
-			int result1 = service.createGchatlist(dto1);
-			System.out.println(result1);
+			String chatroom_name = "그룹채팅 " + gchat_id.get(0);
+			dto1.setChatroom_name(chatroom_name);
+			service.createGchatlist(dto1);
 		}
 
 		dto2.setGchat_id(gchat_id.get(0));
 		List<GMessageDTO> list = service.summonMessage(dto2);
+		String chatroom_name = service.selectchatroomname(dto1);
 		
+		for (GMessageDTO data : list) {
+			String memberid = data.getMember_id();
+			if (memberid == null) {
+				data.setMember_id("알수없음");
+			}
+		}
 		mv.addObject("list", list);
+		mv.addObject("chatroom_name",chatroom_name);
 		mv.setViewName("/GChatView");
 		return mv;
 	}
@@ -100,6 +114,7 @@ public class GChatController {
 	public int sendGChat (@RequestParam("message") String message, @RequestParam("board_id") int board_id, HttpSession session) {
 		GMessageDTO dto1 = new GMessageDTO();
 		GChatlistDTO dto2 = new GChatlistDTO();
+		GChatroomDTO dto3 = new GChatroomDTO();
 		
 		String member_id = String.valueOf(session.getAttribute("member_id"));
 		
@@ -114,9 +129,44 @@ public class GChatController {
 		String now = dateFormat.format(new Date());
 		dto1.setGmessage_sendAt(now);
 		service.insertGmessage(dto1);
+		
+		dto3.setBoard_id(board_id);
+		dto3.setGchat_id(gchat_id.get(0));
+		dto3.setLatest_gcontent(message);
+		service.updatelatestgcontent(dto3);
+		
 		int result = service.selectGmessageid(dto1);
+		System.out.println(result);
 		return result;
 	}
 	
+	@RequestMapping("/leaveGChat") 
+	@ResponseBody
+	public int leaveGChat(@RequestParam("board_id") int board_id, @RequestParam("gchat_id") int gchat_id, HttpSession session){
+		GChatlistDTO dto = new GChatlistDTO();
+		dto.setBoard_id(board_id);
+		dto.setGchat_id(gchat_id);
+		String member_id = String.valueOf(session.getAttribute("member_id"));
+		dto.setMember_id(member_id);
+		
+		service.leavegchatroom(dto);
+		return 0;
+	}
+	
+	@RequestMapping("/changeGChatroomname") 
+	@ResponseBody
+	public int changeGChatroomname(@RequestParam("board_id") String board_id, @RequestParam("gchat_id") String gchat_id, @RequestParam("new_title") String new_title, HttpSession session){
+		GChatlistDTO dto = new GChatlistDTO();
+		int boardid = Integer.parseInt(board_id);
+		int gchatid = Integer.parseInt(gchat_id);
+		dto.setBoard_id(boardid);
+		dto.setGchat_id(gchatid);
+		String member_id = String.valueOf(session.getAttribute("member_id"));
+		dto.setMember_id(member_id);
+		dto.setChatroom_name(new_title);
+		
+		service.changegchatroomname(dto);
+		return 0;
+	}
 
 }

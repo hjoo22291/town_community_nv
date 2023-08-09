@@ -44,4 +44,28 @@
 	<select id="selectGmessagebyid" parameterType="int" resultType = "gmessagedto">
 		SELECT * FROM gchat_message WHERE (gmessage_id = #{gmessage_id});
 	</select>
+	
+	<select id="selectchatroomname" parameterType="gchatlistdto">
+		SELECT chatroom_name FROM gchat_list WHERE (member_id = #{member_id}) and (gchat_id = #{gchat_id}) and (board_id = #{board_id});
+	</select>
+	
+	<update id="updatelatestgcontent" parameterType="gchatroomdto">
+		UPDATE gchat_list SET latest_gcontent = #{latest_gcontent} WHERE (gchat_id = #{gchat_id}) and (board_id = #{board_id});
+	</update>
+	
+	<select id="selectlatestgcontent" parameterType="gchatroomdto">
+		SELECT latest_gcontent FROM gchat_room WHERE (gchat_id = #{gchat_id});
+	</select>
+	
+	<delete id="leavegchatroom" parameterType="gchatlistdto">
+		DELETE FROM gchat_list WHERE (gchat_id = #{gchat_id}) and (board_id = #{board_id}) and (member_id = #{member_id});
+	</delete>
+	
+	<update id="changegchatroomname" parameterType="gchatlistdto">
+		UPDATE gchat_list SET chatroom_name = #{chatroom_name} WHERE (gchat_id = #{gchat_id}) and (board_id = #{board_id}) and (member_id = #{member_id});
+	</update>
+	
+	<update id="deletegchatmessage" parameterType="gmessagedto">
+		UPDATE gchat_message SET gmessage_content = #{gmessage_content} WHERE gmessage_id = #{gmessage_id}; 
+	</update>
   </mapper>

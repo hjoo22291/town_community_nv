@@ -36,7 +36,7 @@ $(document).ready(function(){
 			    회원관리
 			    <ul class="innerMenu">
 			      	<li class="innerMenu">
- 			    	  <form id="admin_member" action="manager" method="get">			    	  	
+ 			    	  <form id="admin_member" action="adminMemberList" method="get">			    	  	
 			 			<input type="submit" value="회원 조회" id="manager_btn" class="admin_group">
 					 </form>
 			      </li>

@@ -28,7 +28,7 @@ public class AdminController {
     static final int postCntPerPage = 20; // 한 페이지에 표시할 게시글 수
     static final int pageCntPerPage = 10; // 한번에 표시할 페이지 개수
    
-    @GetMapping("/manager")
+    @GetMapping("/adminMemberList")
     public ModelAndView getAdminPage(
             @RequestParam(defaultValue = "1") int page, 
             @RequestParam(defaultValue = "signup_date") String orderCol) {

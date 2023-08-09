@@ -124,7 +124,7 @@ $(document).ready(function(){
 		<input type="radio" name="report_reason" value="청소년유해">청소년에게 유해한 내용입니다.<br>
 		<input type="radio" name="report_reason" value="욕설/생명경시/혐오/차별">욕설/생명경시/혐오/차별적 표현입니다.<br>
 		<input type="radio" name="report_reason" value="개인정보노출">개인정보 노출 게시물입니다.<br>
-		<input type="radio" name="report_reason" value="기타">기타<br>
+		<!-- <input type="radio" name="report_reason" value="기타">기타<br> -->
 		</div>
 		<p>신고하시는 이유를 알려주세요.</p>
 		<textarea id="report_detail" name="report_detail" rows="5" cols="55" placeholder="신고 사유를 구체적으로 작성해주세요.(선택사항)"></textarea>

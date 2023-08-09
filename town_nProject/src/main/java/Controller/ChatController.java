@@ -52,9 +52,6 @@ public class ChatController {
 	    
 	    List<MessageDTO> list = service.checkNull(dto3);
 	    
-	    mv.addObject("list",list);
-	    mv.setViewName("/ChatViewVer2");
-	    
 	    if (list.size() == 0) {
 	    	ChatroomDTO dto4 = new ChatroomDTO();
 	    	ChatlistDTO dto44 = new ChatlistDTO();
@@ -77,6 +74,13 @@ public class ChatController {
 		    int result4 = service.readMessage(dto3);
 		    System.out.println(result4);
 	    }
+	    
+		/*
+		 * String touser_id2 = service.doestouseridexist(touser_id); if (touser_id2 ==
+		 * null) { mv.addObject("notexist","알수없음"); }
+		 */
+	    mv.addObject("list",list);
+	    mv.setViewName("/ChatViewVer2");
 		return mv;
 	}
 	
@@ -155,6 +159,11 @@ public class ChatController {
 				data.setTotalisread(totalisread);
 				
 			}
+			
+			String to_id2 = service.doestouseridexist(touser_id);
+			if (to_id2 == null) {
+				data.setTo_id("알수없음");
+			}
 		}
 		
 		dto888.setMember_id(member_id);
@@ -168,5 +177,4 @@ public class ChatController {
 		return mv;
 	}
 	
-
 }

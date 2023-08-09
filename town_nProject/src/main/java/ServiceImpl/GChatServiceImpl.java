@@ -29,6 +29,36 @@ public class GChatServiceImpl implements GChatService {
 	}
 
 	@Override
+	public String selectchatroomname(GChatlistDTO dto) {
+		return dao.selectchatroomname(dto);
+	}
+
+	@Override
+	public int updatelatestgcontent(GChatroomDTO dto) {
+		return dao.updatelatestgcontent(dto);
+	}
+
+	@Override
+	public int leavegchatroom(GChatlistDTO dto) {
+		return dao.leavegchatroom(dto);
+	}
+
+	@Override
+	public int changegchatroomname(GChatlistDTO dto) {
+		return dao.changegchatroomname(dto);
+	}
+
+	@Override
+	public int deletegchatmessage(GMessageDTO dto) {
+		return dao.deletegchatmessage(dto);
+	}
+
+	@Override
+	public String selectlatestgcontent(GChatroomDTO dto) {
+		return dao.selectlatestgcontent(dto);
+	}
+
+	@Override
 	public int createGchatroom(GChatroomDTO dto) {
 		return dao.createGchatroom(dto);
 	}

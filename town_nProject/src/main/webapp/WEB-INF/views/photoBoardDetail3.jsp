@@ -848,7 +848,9 @@ $(document).ready(function(){
 						</c:choose>
 					</c:when>
 					<c:otherwise>
-						<input type="button" id="join_groupChat_btn" class="groupChatBtn" value="채팅 참여" />
+							<c:if test="${gchatResult != 0 }">
+								<input type="button" id="join_groupChat_btn" class="groupChatBtn" value="채팅 참여" />
+							</c:if>					
 					</c:otherwise>
 				</c:choose>
 			</c:if>

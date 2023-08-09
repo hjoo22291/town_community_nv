@@ -1,5 +1,5 @@
 function check (){
-	var getID = RegExp(/^[a-zA-Z0-9]{4,12}$/);
+	var getID = RegExp(/^[a-zA-Z0-9]+[a-zA-Z0-9]{4,12}$/);
     var getCheck = RegExp(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/);
     
     if(!getID.test($("#id").val())){

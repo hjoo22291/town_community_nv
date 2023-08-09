@@ -44,6 +44,7 @@
         <input type="submit" 
         class ="loginbtn" 
         value="로그인" 
+        onclick="return check()"
         disabled>
         <div class="sign_up_pw"><a href="/Signup" >회원가입 </a><a>I</a> 
         <a id="find" href="javascript: Findpasswordopen()">비밀번호찾기</a></div>
